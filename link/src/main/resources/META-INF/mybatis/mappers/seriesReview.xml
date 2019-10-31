@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesReviewDao">		<!-- Dao경로설정 -->
+	
+	<select id="getReviewsByVodNo" parameterType="int" resultType="seriesReview">
+		select 
+		    A.REVIEW_NO no,
+		    A.USER_ID "user.id",
+		    B.USER_nickname "user.nickName",
+		    A.VOD_NO "vod.no",
+		    A.REVIEW_CONTENTS contents,
+		    A.REVIEW_CREATE_DATE createDate
+		from series_reviews A, users B
+		where A.vod_no = #{value}
+		and A.user_id = B.user_id
+	</select>
+	
+	<select id="getCountReviewsByVodNo" parameterType="int" resultType="int">
+		select count(*)
+		from series_reviews
+		where vod_no = #{value}
+	</select>
+	
+	<insert id="addReview" parameterType="seriesReview">
+		insert into series_reviews (
+			REVIEW_NO,
+			USER_ID,
+			VOD_NO,
+			REVIEW_CONTENTS,
+			REVIEW_CREATE_DATE
+			)
+		values(
+			series_review_seq.nextval,
+			#{user.id},
+			#{vod.no},
+			#{contents},
+			sysdate)
+	</insert>
+	
+</mapper>

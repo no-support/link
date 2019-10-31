@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.JisikinAnswerDao">		<!-- Dao경로설정 -->
+
+	<insert id="addAnswer" parameterType="jisikinAnswer">
+		insert into jisikin_answer
+		(answer_no, answer_secret_yn, jisikin_no, user_id, answer_contents)
+		values
+		(jisikin_answer_seq.nextval, #{secretYn}, #{jisikinNo}, #{userId}, #{contents})
+	</insert>
+	
+	<select id="getAnswersByJisikinNo" parameterType="int" resultType="jisikinAnswer">
+		select
+			answer_no no,
+			answer_create_date createDate,
+			answer_selected_yn selectedYn,
+			answer_secret_yn secretYn,
+			jisikin_no jisikinNo,
+			user_id userId,
+			answer_contents contents
+		from
+			jisikin_answer
+		where
+			jisikin_no = #{value}
+		order by
+			answer_create_date desc
+	</select>
+	
+	<select id="getAnswerByNo" parameterType="int" resultType="jisikinAnswer">
+		select
+			answer_no no,
+			answer_create_date createDate,
+			answer_selected_yn selectedYn,
+			answer_secret_yn secretYn,
+			jisikin_no jisikinNo,
+			user_id userId,
+			answer_contents contents
+		from
+			jisikin_answer
+		where
+			answer_no = #{value}
+	</select>
+	
+	<update id="updateAnswerByNo" parameterType="jisikinAnswer">
+		update
+			jisikin_answer
+		set
+			answer_selected_yn = #{selectedYn}
+		where
+			answer_no = #{no}
+	</update>
+	
+	<select id="getRank" resultType="jisikinrank">
+		select 
+			rownum rank, 
+			cnt cnt, 
+			user_id userId
+		from
+		    (select 
+		        user_id, count(*) cnt
+		    from 
+		        jisikin_answer
+		    where
+		        jisikin_answer.answer_selected_yn = 'Y'
+		    group by
+		        user_id
+		    order by
+		        cnt desc)
+		where
+		    rownum &lt;= 3
+	</select>
+</mapper>

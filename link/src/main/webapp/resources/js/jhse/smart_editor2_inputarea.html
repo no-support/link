@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<title>Smart Editor&#8482; WYSIWYG Mode</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			$('.se2_inputarea').on('click', '.del-seVote', function() {
+				var voteNum = $(this).attr('data-delValue');
+				
+				$.ajax({
+					type:'get',
+					url:'/link/band/bandWriteDelVote.do',
+					data:{'voteNo':voteNum},
+					success:function(){
+						$('#seVote-'+voteNum).remove();
+					}
+				})
+			})	
+			
+			$('.se2_inputarea').on('click', '.del-seTodo', function() {
+				var todoNum = $(this).attr('data-delValue');
+				
+				$.ajax({
+					type:'get',
+					url:'/link/band/bandWriteDelTodo.do',
+					data:{'todoNo':todoNum},
+					success:function(){
+						$('#seTodo-'+todoNum).remove();
+					}
+				})
+			})	
+			
+			$('.se2_inputarea').on('click', '.del-seNbb', function() {
+				var nbbNum = $(this).attr('data-delValue');
+
+				$.ajax({
+					type:'get',
+					url:'/link/band/bandWriteDelNbbang.do',
+					data:{'nbbNo':nbbNum},
+					success:function(){
+						$('#seNbb-'+nbbNum).remove();
+					}
+				})
+			})	
+			
+			$('.se2_inputarea').on('click', '.del-seJoin', function() {
+				var joinNum = $(this).attr('data-delValue');
+
+				$.ajax({
+					type:'get',
+					url:'/link/band/bandWriteDelJoin.do',
+					data:{'joinNo':joinNum},
+					success:function(){
+						$('#seJoin-'+joinNum).remove();
+					}
+				})
+			})	
+			
+			
+			
+		})
+	</script>
+</head>
+<body class="se2_inputarea" style="height:0"></body>
+</html>

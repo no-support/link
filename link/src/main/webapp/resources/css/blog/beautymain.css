@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+.main-nav {
+	margin-bottom: 0px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover, a:focus {
+	text-decoration: none;
+	color: black;
+}
+.blog_open_neighbor{
+	margin-bottom:10px;
+}
+.blog-manage-title {
+	font-size: 16px;
+	font-weight: bold;
+}
+.blog-beauty-left-hr{
+	margin-bottom: 0px;
+}
+.blog-manage-bigbox {
+	margin: 15px 0px;
+}
+
+.blog-manage-smallbox {
+	margin: 3px 0px;
+}
+
+.blog-manage-smallbox span a {
+	color: #313233;
+}
+
+.row .blog-manage-bigbox:first-child {
+	margin-top: 30px;
+}
+
+.blog_manage_right_row {
+	padding-top: 40px;
+	padding-left: 28px;
+	padding-right: 28px;
+	padding-bottom: 60px;
+	border-left: 1px solid lightgray;
+}
+
+.blog_manage_title {
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.blog_manage_hr1 {
+	border-bottom: 2px solid gray;
+}
+
+.blog_manage_right_row2 {
+	font-size: 15px;
+}
+
+.blog_manage_right_row2 .col-sm-5:nth-child(3) {
+	font-size: 14px;
+	color: gray;
+}
+
+.blog_beauty_subject {
+	font-size: 14px;
+	color: black;
+}
+
+.blog_beauty_left_col {
+	padding-right: 0px;
+}
+
+.blog_beauty_mainheader ul li {
+	list-style: none;
+	float: left;
+	margin: 0px 15px;
+	padding: 13px 0px;
+}
+.blog_beauty_mainheader ul li a{
+	font-size:15px;
+}
+
+.blog_beauty_mainheader ul li:first-child {
+	margin-left: 0px;
+}
+
+.blog_beauty_selected1{
+	font-weight: 800;
+	border-bottom: 2px solid #52b0f2;
+}
+.blog_beauty_selected1 a{
+	color:#52b0f2 !important;
+}
+.blog_beauty_subjectSelect{
+	position: relative;
+	top:7px;
+}
+.blog_beauty_subjectSelect2{
+	position: relative;
+	top:7px;
+}
+.blog_beauty_ul {
+	padding-left: 0px;
+}
+
+.blog_beauty_hr1 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: 0.5px solid lightgray;
+}
+
+.blog_beauty_con {
+	border: 0.5px solid lightgray;
+	border-top: none;
+}
+.blog_beauty_selected span a{
+	color:#649dfa !important;
+}
+.blog_manage_right_row2 img {
+	width: 200px;
+	height: 200px;
+}
+.blog_beauty_bottombtndiv{
+	margin-bottom:20px;
+}
+.blog_beauty_boldhr{
+	border:1px solid gray;
+}
+.blog_beuaty_submit_button{
+	background-color:white;
+	border:1px solid lightgray;
+}

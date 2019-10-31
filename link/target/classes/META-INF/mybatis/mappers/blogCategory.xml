@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.link.dao.BlogCategoryDao">		<!-- Dao경로설정 -->
+	<select id="getAllCategoryBySubCategory" parameterType="int" resultType="blogcategory">
+		select
+		CATEGORY_NO no,
+		CATEGORY_TITLE title,
+		CATEGORY_SHOWTYPE
+		showType,
+		CATEGORY_ORDERS orders,
+		CATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_NO
+		subCategoryNo
+		from
+		blog_category
+		where
+		subcategory_no = #{value}
+	</select>
+	<select id="getAllCategoryByCategoryNo" parameterType="int" resultType="blogcategory">
+		select
+		CATEGORY_NO no,
+		CATEGORY_TITLE title,
+		CATEGORY_SHOWTYPE
+		showType,
+		CATEGORY_ORDERS orders,
+		CATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_NO subCategoryNo
+		from
+		blog_category
+		where
+		category_no = #{value}
+	</select>
+
+	<select id="getCategoryBySubCategory" parameterType="int" resultType="blogcategory">
+		select
+		CATEGORY_NO no,
+		CATEGORY_TITLE title,
+		CATEGORY_SHOWTYPE
+		showType,
+		CATEGORY_ORDERS orders,
+		CATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_NO
+		subCategoryNo
+		from
+		blog_category
+		where
+		subcategory_no = #{value}
+		and
+		CATEGORY_VISIBILITY = 'Y'
+	</select>
+	<select id="getOneCategoryByOrder" parameterType="map" resultType="blogcategory">
+		select a.CATEGORY_NO no, a.category_title title,
+		a.CATEGORY_SHOWTYPE showType, a.CATEGORY_ORDERS orders, a.CATEGORY_VISIBILITY visibility,
+		a.SUBCATEGORY_NO subCategoryNo
+		from(
+		select
+		ROW_NUMBER() OVER (PARTITION by subcategory_no ORDER BY CATEGORY_ORDERS asc) row_no,
+		CATEGORY_NO,
+		CATEGORY_TITLE ,
+		CATEGORY_SHOWTYPE,
+		CATEGORY_ORDERS,
+		CATEGORY_VISIBILITY,
+		SUBCATEGORY_NO
+		from
+		blog_category
+		where
+			CATEGORY_VISIBILITY = 'Y'
+		) a, blog_subcategory b, blog c
+		where a.subcategory_no =
+		b.subcategory_no
+		and row_no = 1
+		and b.subcategory_no = ${subCatNo}
+		and b.blog_no = c.blog_no
+		and c.blog_no = ${blogNo}
+	</select>
+
+	<select id="getCategoryByCategoryNo" parameterType="int" resultType="blogcategory">
+		select
+		CATEGORY_NO no,
+		CATEGORY_TITLE title,
+		CATEGORY_SHOWTYPE
+		showType,
+		CATEGORY_ORDERS orders,
+		CATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_NO subCategoryNo
+		from
+		blog_category
+		where
+		category_no = #{value}
+		and
+		CATEGORY_VISIBILITY = 'Y'
+	</select>
+
+	<insert id="addNewCategory" parameterType="blogcategory">
+		insert into blog_category(
+		CATEGORY_NO,
+		CATEGORY_TITLE,
+		CATEGORY_SHOWTYPE,
+		CATEGORY_ORDERS,
+		CATEGORY_VISIBILITY,
+		SUBCATEGORY_NO,
+		CATEGORY_CREATEDATE
+		)
+		values(
+		blog_seq.nextval,#{title},'onerow',blog_seq.nextval,'Y',#{subCategoryNo},sysdate
+		)
+	</insert>
+	<update id="updateCategory" parameterType="blogcategory">
+		update blog_category
+		set
+		CATEGORY_TITLE = #{title},
+		CATEGORY_SHOWTYPE = #{showType},
+		CATEGORY_ORDERS = #{orders},
+		CATEGORY_VISIBILITY = #{visibility},
+		SUBCATEGORY_NO = #{subCategoryNo}
+		where
+		CATEGORY_NO = #{no}
+	</update>
+	<delete id="deleteCategory" parameterType="int">
+		delete from blog_category
+		where
+		category_no = #{value}
+	</delete>
+</mapper>

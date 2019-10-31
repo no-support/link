@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesVodDao">		<!-- Dao경로설정 -->
+	
+	<select id="getsomeLikesVods" resultType="seriesVod">	<!-- 캐러셀 -->
+		select 
+			vod_no no,
+			vod_img img,
+			vod_actor actor,
+			vod_title title,
+			vod_price price
+		from series_vods
+		where vod_no in (
+			    		select vod_no from (
+			    							select * 
+			    							from (select distinct vod_no , COUNT(*)OVER(PARTITION BY vod_no) A from series_likes)
+			            					order by A desc
+			            					) B
+    					where rownum &lt;= 10
+		)
+	</select>
+	
+	<select id="get4BrandNewVods" resultType="seriesVod">
+		select 
+			vod_no no,
+			vod_img img,
+			vod_actor actor,
+			vod_title title,
+			vod_price price
+		from (select * from series_vods where vod_no in (select distinct vod_no from series_episodes) order by vod_create_date desc)
+		where rownum &lt; 5
+	</select>
+	
+	<select id="getVodsBycategory" parameterType="hashmap" resultType="seriesVod">
+		select
+			vod_no no,
+			vod_img img,
+			vod_title title,
+			vod_price price
+		from series_vods
+		<if test="category_no != 0">
+			<choose>
+				<when test="category_no == 31">
+					<if test="ing == 'Yes'">
+						where category_no = 31
+						and  vod_is_end = '방영중'
+					</if>
+					<if test="ing == 'No'">
+						where category_no = 31
+						and
+						vod_is_end = '(종영)'
+					</if>
+				</when>
+				<otherwise>
+					where category_no = #{category_no}
+				</otherwise>
+			</choose>
+		</if>
+		<choose>
+			<when test="sort == 'date'">
+				order by vod_no desc
+			</when>
+			
+			<when test="sort == 'price'">
+				order by vod_price asc
+			</when>
+		</choose>
+	</select>
+	
+	<select id="get3DailyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		vod_actor "actor",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, v.vod_actor, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 3
+	</select>
+	
+	<select id="getDailyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
+	</select>
+	
+	<select id="getWeeklyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -7, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
+	</select>
+	
+	<select id="getMonthlyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= trunc(add_months(sysdate, -1), 'MM')
+		and o.order_create_date &lt; trunc(sysdate, 'MM')
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
+	</select>
+	
+	<select id="getVodByVodNo" parameterType="int" resultType="seriesVod">
+	select
+		VOD_NO no,
+		CATEGORY_NO "category.no",
+		VOD_IMG img,
+		VOD_RUNNING_TIME runningTime,
+		VOD_AIR_START_DATE airStartDate,
+		VOD_AIR_FINISH_DATE airFinishedDate,
+		VOD_GRADE grade,
+		VOD_ACTOR actor,
+		VOD_DIRECTOR director,
+		VOD_DESCRIPTION descriptrion,
+		VOD_TITLE title,
+		VOD_PRICE price,
+		VOD_CREATE_DATE createDate,
+		VOD_IS_END isFinished
+	from series_vods
+	where vod_no = #{value}
+	</select>
+	
+	<select id="getVodsInUserCarts" parameterType="string" resultType="seriesVod">	<!-- 유저의 장바구니에 담긴 vod 정보 -->
+	select 
+		VOD_NO no,
+		CATEGORY_NO "category.no",
+		VOD_IMG img,
+		VOD_RUNNING_TIME runningTime,
+		VOD_AIR_START_DATE airStartDate,
+		VOD_AIR_FINISH_DATE airFinishedDate,
+		VOD_GRADE grade,
+		VOD_ACTOR actor,
+		VOD_DIRECTOR director,
+		VOD_DESCRIPTION descriptrion,
+		VOD_TITLE title,
+		VOD_PRICE price,
+		VOD_CREATE_DATE createDate,
+		VOD_IS_END isFinished
+	from series_vods
+	where vod_no in 
+		(select vod_no 
+		from series_episodes 
+		where episode_no in 
+			(select episode_no 
+			from series_carts 
+			where user_id= #{value}
+			)
+		)
+	</select>
+</mapper>

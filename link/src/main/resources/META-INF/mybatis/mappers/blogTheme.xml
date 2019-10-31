@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogThemeDao">		<!-- Dao경로설정 -->
+
+<select id="getAllThemes" resultType="blogtheme">
+	select
+		THEME_NO no,
+		THEME_FILENAME fileName,
+		theme_order themeOrder,
+		THEME_CREATEDATE createDate
+	from
+		blog_themes
+	order by THEME_CREATEDATE asc
+</select>
+</mapper>

@@ -1,0 +1,88 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>Link : 회원가입</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/registerform.css">
+	<link rel="stylesheet" href="../../../resources/css/user/loginform.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">-
+           <div class="col-sm-4 col-sm-offset-4">
+                <span class="main-naver"><a href=""><span style="" class="main-null-img glyphicon glyphicon-link"></span>
+                        <span style="">L</span><span style="color:#E62600;">i</span><span style="color:#FCC800;">n</span><span style="color:#00B658">k</span> </a></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form id="register_form" method="post" action="">
+                  <div class="form-group well">
+                    <div>
+                        <label>아이디</label>
+                        <input class="register-input form-control" type="text" value="" name=""/>
+                    </div>
+                    <div>
+                        <label>비밀번호</label>
+                        <input class="register-input form-control" type="text" value="" name=""/>
+                    </div>
+                    <div style="margin-bottom: 50px;">
+                        <label>비밀번호 확인</label>
+                        <input class="register-input form-control" type="text" value="" name=""/>
+                    </div>
+                    <div>
+                        <label>이 름</label>
+                        <input class="register-input form-control" type="text" value="" name=""/>
+                    </div>
+                    <div>
+                        <label>생년월일</label>
+                        <input class="register-input form-control" type="date" value="" name=""/>
+                    </div>
+                    <div>
+                        <label>성별</label><br/>
+                        <select class="register-input form-control" value="" name="">
+                            <option value="" selected>성별</option>
+                            <option value="M">남자</option>
+                            <option value="W">여자</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label>이메일</label>
+                        <input class="register-input form-control" type="text" value="" name="" placeholder="선택입력"/>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                           <div>    
+                             <label>휴대전화</label>
+                            <select class="register-input form-control" id="phone-input" value="" name="">
+                                <option value="010">010</option>
+                                <option value="02">02</option>
+                                <option value="070">070</option>
+                                <option value="055">055</option>
+                            </select>
+                            <input class="register-input form-control" type="text" value="" name=""/>
+                           </div>
+                      </div>
+                    <div>
+                       <button class="form-control btn btn-primary btn-register" type="submit">가입하기</button>
+                    </div>
+                  </div>  
+                </form>
+                
+            </div>
+        </div>
+</div>
+<div class="container">
+</div>
+
+</body>
+</html>

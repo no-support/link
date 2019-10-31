@@ -1,0 +1,54 @@
+body {
+ background: #eef0f3;
+}
+
+.login-main {
+    padding-top: 10%;
+}
+
+.login-input {
+    width: 400px;
+    height: 40px;
+    font-size: 15px;
+}
+
+#login {
+    font-size: 20px;
+    height:50px;
+    padding: 10px;
+}
+
+.btn-agree {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: skyblue;
+}
+
+.border {
+    padding: 0px 10px 0px 10px;
+    border-right: 1px solid skyblue;
+}
+
+.main-null-img {
+    position: relative;
+    top: 5px;
+    z-index: -1;
+    /*            color: white; background-color:#649dfa; */
+    /*            border: 1px solid #649dfa;*/
+}
+
+.main-naver a {
+    font-size: 80px;
+    font-weight: bold;
+    color: #649dfa;
+    font-family: 'Jura', sans-serif;
+    font-family: 'Marck Script', cursive;
+    font-family: 'Sacramento', cursive;
+    font-family: 'Russo One', sans-serif;
+}

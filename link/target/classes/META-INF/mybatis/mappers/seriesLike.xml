@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesLikeDao">		<!-- Dao경로설정 -->
+	
+	<select id="getCountLikesByVodNo" parameterType="int" resultType="int">	<!-- 좋아요 수 -->
+		select count(*)
+		from series_likes
+		where vod_no = #{value}
+	</select>
+	
+	<insert id="addLike" parameterType="seriesLike">	<!-- 좋아요 추가 -->
+		insert into series_likes
+			(LIKE_NO,	VOD_NO,	USER_ID,	LIKE_CREATE_DATE)
+		values
+			(series_like_seq.nextval,	#{vod.no},	#{user.id},	sysdate)
+	</insert>
+	
+	<delete id="deleteLike" parameterType="seriesLike">	<!-- 좋아요 삭제 -->
+		delete from series_likes where vod_no = #{vod.no} and user_id = #{user.id}
+	</delete>
+	
+	<select id="getCountUserLikes" parameterType="seriesLike" resultType="int">	<!-- 사용자의 vod에 대한 좋아요 수 -->
+		select count(*) from series_likes where user_id = #{user.id} and vod_no = #{vod.no}
+	</select>
+	
+	
+	
+	<select id="getLikesById" parameterType="string" resultType="hashmap">	<!-- 사용자 좋아요 -->
+		select
+			v.vod_img "img", 
+			v.vod_title "title", 
+			v.vod_air_start_date "start", 
+			v.vod_air_finish_date "finish", 
+			v.vod_actor "actor", 
+			v.vod_no "no",
+			l.like_create_date "date"
+		from series_likes l, series_vods v 
+		where user_id = #{value} 
+		and v.vod_no = l.vod_no
+		order by l.like_create_date desc
+	</select>
+	
+	
+</mapper>

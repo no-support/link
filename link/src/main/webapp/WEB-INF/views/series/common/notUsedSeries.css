@@ -1,0 +1,121 @@
+         a:hover,
+         a:focus {
+             text-decoration: none;
+         }
+
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
+        }
+
+         .main-nav {
+             background-color: #649dfa;
+         }
+
+         .series-main-javer {
+             position: relative;
+             top: 5px;
+             font-size: 15px;
+             color: white;
+             font-weight: 800;
+         }
+
+         .series-main-series {
+             position: relative;
+             top: 8px;
+             font-size: 24px;
+             color: white;
+         }
+
+         .btn-green {
+             background-color: #3399ff;
+             color: white;
+             padding: 2px 6px;
+         }
+
+         .glyphicon-search {
+             font-size: 23px;
+             color:white;
+         }
+
+         .series-navbar-id {
+             color: white;
+             position: relative;
+             bottom: 3px;
+             font-size: 13px;
+             font-weight: bold;
+             margin-right: 10px;
+             cursor: pointer;
+         }
+
+         .glyphicon-triangle-bottom {
+             margin-left: 5px;
+         }
+
+         .series-navbar-img {
+             position: relative;
+             bottom: 3px;
+             width: 30px;
+         }
+
+         .series-navbar-right {
+             position: relative;
+         }
+
+         .glyphicon glyphicon-triangle-bottom {
+             color: white;
+             font-size: 7px;
+         }
+
+        .shopping-cart {
+             display: inline-block;
+             position: relative;
+             width: 60px;
+             height: 50px;
+             border-right: 1px solid #F8F8F8;
+             border-left: 1px solid #F8F8F8;
+         }
+
+         .bell {
+             display: inline-block;
+             position: relative;
+             width: 60px;
+             height: 50px;
+             border-right: 1px solid #4d94ff;
+             border-left: 1px solid #4d94ff;
+         }
+
+         .envelope {
+             display: inline-block;
+             position: relative;
+             width: 60px;
+             height: 50px;
+             border-right: 1px solid #4d94ff;
+         }
+
+         .glyphicon-shopping-cart {
+             color: #777777;
+             position: relative;
+             right: 6px;
+             font-size: 20px;
+             padding: 13px;
+         }
+
+
+         .glyphicon-bell {
+             color: white;
+             position: relative;
+             right: 6px;
+             font-size: 20px;
+             padding: 13px;
+         }
+
+         .glyphicon-envelope {
+             color: white;
+             position: relative;
+             right: 4px;
+             font-size: 20px;
+             padding: 12px 20px;
+         }

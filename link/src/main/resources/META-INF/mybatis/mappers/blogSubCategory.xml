@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.link.dao.BlogSubCategoryDao">		<!-- Dao경로설정 -->
+	<select id="getSubCategoryByBlogNo" parameterType="int" resultType="blogsubcategory">
+		select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+		from
+		blog_subcategory
+		where
+		blog_no = #{value}
+		and subcategory_visibility = 'Y'
+	</select>
+	<select id="getSubCategoryBySubCatNo" parameterType="int" resultType="blogsubcategory">
+		select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+		from
+		blog_subcategory
+		where
+		SUBCATEGORY_NO = #{value}
+		and subcategory_visibility = 'Y'
+	</select>
+	<select id="selectLastSubCategory" parameterType="int" resultType="blogsubcategory">
+		select no, title, visibility, createDate, blogNo
+		from(
+		select ROW_NUMBER() OVER (PARTITION BY blog_No ORDER BY subcategory_create_Date desc)
+		row_no,
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+		from
+		blog_subcategory
+		)
+		where row_no = 1
+		and blogNo = #{value}
+		and subcategory_visibility = 'Y'
+	</select>
+
+	<select id="getAllSubCategoryByBlogNo" parameterType="int" resultType="blogsubcategory">
+		select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+		from
+		blog_subcategory
+		where
+		blog_no = #{value}
+	</select>
+	<select id="getAllSubCategoryBySubCatNo" parameterType="int" resultType="blogsubcategory">
+		select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+		from
+		blog_subcategory
+		where
+		SUBCATEGORY_NO = #{value}
+	</select>
+	<select id="getOneSubCategoryByBlogNo" parameterType="int" resultType="blogsubcategory">
+		select no, title, visibility, createDate, blogNo
+		from(
+			select ROW_NUMBER() OVER (PARTITION BY blog_no ORDER BY subcategory_no asc) row_no,
+				SUBCATEGORY_NO no,
+				SUBCATEGORY_TITLE title,
+				SUBCATEGORY_VISIBILITY visibility,
+				SUBCATEGORY_CREATE_DATE createDate,
+				BLOG_NO blogNo
+			from
+				blog_subcategory
+			where
+				SUBCATEGORY_VISIBILITY = 'Y'
+	        )
+			where
+				row_no =1
+			and
+				blogno = #{value}
+	</select>
+	<insert id="addNewSubCategoryWithNo" parameterType="blogsubcategory">
+		insert into blog_subcategory
+		values(
+		#{no},#{title},'Y',sysdate,#{blogNo}
+		)
+	</insert>
+	<insert id="addNewSubCategory" parameterType="blogsubcategory">
+		insert into blog_subcategory
+		values(
+		blog_seq.nextval,#{title},'Y',sysdate,#{blogNo}
+		)
+	</insert>
+
+	<update id="updateSubCategory" parameterType="blogsubcategory">
+		update blog_subcategory
+		set
+		SUBCATEGORY_TITLE = #{title},
+		SUBCATEGORY_VISIBILITY = #{visibility},
+		BLOG_NO = #{blogNo}
+		where
+		SUBCATEGORY_NO = #{no}
+	</update>
+	<select id="getNextBlogSequence" resultType="int">
+		select blog_seq.nextval
+		from dual
+	</select>
+	<delete id="deleteSubCategory" parameterType="int">
+		delete from blog_subcategory
+		where subcategory_no = #{value}
+	</delete>
+
+</mapper>

@@ -1,0 +1,10 @@
+#register_form label {text-align: left;}
+
+.btn-register {
+    height: 60px;
+    font-size: 20px;
+}
+
+.register-input{
+    height: 40px;
+}

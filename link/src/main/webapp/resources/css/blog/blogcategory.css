@@ -1,0 +1,33 @@
+@charset "UTF-8";
+.blog_category_buttoncol{
+	margin-bottom:10px;
+}
+.blog_category_div{
+	border : 1px solid #ccc;
+	padding:10px;
+}
+.blog_category_hr1{
+	margin-top: 10px;
+}
+.blog_category_row1{
+	margin-bottom: 5px;
+}
+.blog-detail-showall{
+	cursor: pointer;
+}
+.blog_category_cat1{
+	padding:0px 25px;
+}
+.blogCategoryselected{
+	background-color: #B1B3BF;
+}
+.blogCat{
+	cursor:pointer;
+}
+.blogSubCat{
+	cursor:pointer;
+}
+.blog_category_1{
+	font-size: 12px;
+	color:lightgray;
+}

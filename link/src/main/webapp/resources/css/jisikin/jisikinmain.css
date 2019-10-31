@@ -1,0 +1,682 @@
+body {
+ background: #eef0f3;
+}
+
+div {
+    display: block;
+}
+
+.jisikin-nav {
+    background-color: whitesmoke;
+}
+
+.jisikin-nav > .container-fluid{
+    padding-right: 0px !important;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+}
+
+.navbar-nav > li > .dropdown-menu {
+   padding-right: 20px;
+}
+
+.menu-tab {
+    border-right: 1px solid white;
+}
+
+.menu-tab:last-child
+{
+    border-right: 0px solid;
+}
+
+.navbar-header {
+    color: white;
+}
+
+.menu-home {
+    font-size: 25px;
+    border-right: 2px solid white;
+}
+
+.jisik-section-1 {
+    border : 1px solid gray;
+    background-color : white;
+}
+
+.qna-toggle {
+    background-color: whitesmoke !important;
+    color: black !important;
+    border-right: 1px solid white;
+}
+
+.btn-question {
+    background-color: #649dfa;
+}
+
+.btn-question > a {
+     color: whitesmoke !important;
+}
+
+.jisikin-section-2-qna {
+    margin-right: 20px;
+}
+
+.title_bar {
+    margin: 0 18px;
+    display: inline-block;
+    width: 1px;
+    height: 14px;    
+    background: #dcddde;
+    vertical-align: middle;
+}
+
+.well {
+    background-color: white !important;
+}
+
+ul, li {
+    list-style: none;
+}
+body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+    margin: 0;
+    padding: 0;
+}
+
+user agent stylesheet
+ul {
+    display: block;
+    list-style-type: disc;
+}
+
+.ranking-item {
+    border-top: 1px solid gray;
+}
+
+.ranking-section .ranking-item {
+    position: relative;
+    margin-top: 14px;
+    padding: 4px 0 16px 18px;
+    border-bottom: 1px solid #f2f2f2;
+    background: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+}
+
+.answer_cate {
+    
+}
+
+.ranking-item .no {
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 7px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: #26b049;
+}
+
+.ranking-title {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ranking-item .text {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 4px -18px;
+    color: #555;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-height:35px;
+}
+
+.ranking-item .recommend-num {
+    color: #5885ce;
+}
+
+.ranking-item .reply-num {
+    color: #999;
+}
+
+.ranking-item .text:before{content:'';display:inline-block;width:6px;height:6px;border:1px solid #ccc;border-width:0 0 1px 1px;margin:0 9px 0 2px;vertical-align:2px}
+
+.row {
+    padding-right: 5px;
+}
+
+.aside-login img{
+    padding-left: 10px;
+    float: left;
+}
+
+.aside-login strong{
+    padding-top: 6px;
+    float: left;
+    font-size: 20px;
+}
+
+.top_text {
+    margin: 0 0 7px;
+    line-height: 12px;
+    letter-spacing: -1px;
+    font-size: 11px;
+    color: #888;
+}
+
+.sign_area {
+    margin: 12px 0 0;
+    zoom: 1;
+    line-height: 12px;
+    vertical-align: top;
+    font-size: 11px;
+    color: #888;
+}
+
+.sign_area .info_find {
+    float: left;
+}
+
+.sign_in a, .info_find a {
+    margin: -5px;
+    padding: 5px;
+    vertical-align: top;
+    color: #888;
+}
+
+.bar {
+    display: inline-block;
+    overflow: hidden;
+    width: 1px;
+    height: 10px;
+    margin: 0 7px;
+    vertical-align: top;
+    background: #c5c5c5;
+}
+
+.bar2 {
+    display: inline-block;
+    overflow: hidden;
+    width: 1px;
+    height: 20px;
+    margin: 0 7px;
+    vertical-align: top;
+    background: #c5c5c5;
+}
+
+.sign_in {
+    float: right;
+}
+
+.aside_tag {
+    font-size: 13px;
+    line-height: 1.2;
+    display: block;
+}
+
+.aside_tag .tag_wrap {
+    overflow: hidden;
+    max-height: 180px;
+    margin-top: 10px;
+    margin-left: -4px;
+}
+
+.aside_tag .tag_wrap .tag {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 210px;
+    height: 24px;
+    margin: 6px 0 0 4px;
+    padding: 0 4px;
+    background-color: #e2ebf4;
+    line-height: 24px;
+    color: #788d9f;
+    text-decoration: none;
+    vertical-align: top;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.aside_statistics {
+    padding: 31px 20px 30px;
+    font-size: 13px;
+    display: block;
+}
+
+.stats_today, .stats_accum {
+    margin-bottom: 27px;
+    margin-top: 17px;
+    line-height: 1.2;
+}
+
+.blind {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+}
+
+.aside_statistics .stats .num {
+    font-size: 22px;
+    font-weight: bold;
+    color: #649dfa;
+    letter-spacing: -1px;
+}
+
+.aside_statistics .stats .slash {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    margin: 0 6px;
+    background-position: -134px -48px;
+    font-size: 0;
+    color: transparent;
+    content: '';
+        overflow: hidden;
+    background-image: url(https://ssl.pstatic.net/static/kin/section/sprite/sp_common_old_180806.png);
+    background-repeat: no-repeat;
+}
+
+.stats .date_info {
+    margin-top: 5px;
+    font-size: 12px;
+    color: gray;
+}
+
+h4 {
+    font-size: 13px;
+}
+
+/* 답변 영역 */
+.answer_wrap .title_area {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+ul, li {
+    list-style: none;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+}
+
+.tc-selected {
+    display: block;
+}
+
+.answer_wrap .title_area ul li.tc-selected .title {
+    border-color: #696969;
+    color: #333;
+}
+
+.answer_wrap .title_area ul li .title {
+    display: block;
+    float: left;
+    position: relative;
+    width: 50%;
+    height: 36px;
+    padding: 24px 0 0;
+    border-bottom: 1px solid #cecece;
+    font-size: 16px;
+    font-weight: 600;
+    color: gray;
+    text-align: center;
+    text-decoration: none;
+}
+
+.tc-tab {
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.answer_wrap .title_area ul li:first-child a:after {
+    position: absolute;
+    top: 23px;
+    right: 0;
+    width: 1px;
+    height: 16px;
+    background-color: #dcddde;
+    content: '';
+}
+.answer_wrap .title_area ul li .title:after {
+    display: block;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+
+.directory_area {
+    float: left;
+    width: 145px;
+    padding: 0 17px 50px 0;
+}
+
+.directory_area .directory_box:first-child {
+    padding-top: 0;
+}
+
+.directory_area .directory_box:first-child, .directory_area .btn_setting+.directory_box {
+    margin-top: 0;
+    border-top: 0;
+}
+
+.directory_area .directory_box {
+    overflow: hidden;
+    max-width: 145px;
+}
+
+.directory_area .directory_list {
+    margin-top: 14px;
+}
+
+.directory_area .directory_list li {
+    margin-top: 8px;
+    color: #c2c2c2;
+    line-height: normal;
+    font-size: 12px;
+}
+
+.border {
+    position: absolute;
+    left: 162px;
+    z-index: 15;
+    width: 1px;
+    height: 100%;
+    background-color: #ddd;
+}
+
+.sort_list_module {
+    margin-top: 4px;
+}
+
+.section_answer .heading_area {
+    position: relative;
+    min-height: 80px;
+    font-size: 13px;
+}
+
+.sort_list_module:after {
+    display: table;
+    clear: both;
+    content: '';
+}
+
+.sort_list_module li:first-child {
+    margin-left: 0;
+}
+
+.sort_list_module li {
+    float: left;
+    margin-left: 4px;
+}
+
+.sort_list_module li.is_active>a {
+    font-weight: bold;
+    color: #649dfa;
+}
+
+.sort_list_module li>a {
+    display: block;
+    position: relative;
+    padding-left: 13px;
+    font-size: 12px;
+    letter-spacing: -1px;
+    color: #666;
+}
+
+.sort_list_module li.is_active .ico_sort {
+    left: 0;
+    width: 11px;
+    height: 8px;
+    margin-top: -4px;
+    background-color: transparent;
+    background-position: -52px -37px;
+}
+
+.sort_list_module li.is_active .ico_sort {
+    display: block;
+    overflow: hidden;
+    background-image: url(https://ssl.pstatic.net/static/kin/section/sprite/sp_common_old_180806.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+        font-weight: bold;
+    color: #00c73c;
+        font-size: 12px;
+    letter-spacing: -1px;
+}
+
+
+.answer_box {
+    padding: 0;
+}
+.answer_box {
+    position: relative;
+    padding: 19px 0 24px;
+    border-bottom: 1px solid #ededed;
+    zoom: 1;
+}
+
+.answer_box {
+    padding: 0;
+}
+.answer_box:first-child, .answer_box.first {
+    border-top: 1px solid #cacccc;
+}
+.answer_box {
+    position: relative;
+    border-bottom: 1px solid #ededed;
+    zoom: 1;
+}
+
+.answer_box .tit_wrap {
+    max-width: 254px;
+    height: 40px;
+    font-size: 13px;
+    overflow: hidden;
+    font-weight: 600;
+    line-height: 22px;
+    color: #000;
+}
+
+.answer_box .update_info {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -7px;
+    width: 200px;
+}
+.answer_box .update_info {
+    font-size: 13px;
+}
+
+.answer_box .update_info .num_answer {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.answer_box .update_info .num_answer {
+    color: #4c4c4c;
+}
+
+.answer_box .update_info .num_answer+.info {
+    width: 86px;
+    margin-right: 10px;
+}
+.answer_box .update_info .info {
+    overflow: hidden;
+    height: 15px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 70px;
+    text-align: right;
+}
+.answer_box .update_info .num_answer+.info {
+    margin-left: -8px;
+}
+.answer_box .update_info .info {
+    display: inline-block;
+    position: relative;
+    margin-left: 1px;
+    padding-left: 3px;
+    color: #777;
+    vertical-align: middle;
+}
+.answer_box .update_info {
+    font-size: 13px;
+    text-align: left;
+}
+
+.power_grade {
+    display: inline-block;
+    min-width: 10px;
+    padding: 2px 5px 3px;
+    border-radius: 2px;
+    background-color: #9aa8ba;
+    font-family: tahoma;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+.answer_box .tit_wrap a {
+    padding: 9px 0;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+ .tit_txt{
+     max-width:176px;
+     display:inline-block;
+     overflow:hidden;
+     text-overflow:ellipsis
+}
+
+.heading_title {
+    font-size: 25px;
+    float: left;
+}
+
+.answer_box {
+    display: block;
+}
+
+.answer_cate {
+    font-size: 7px;
+}
+
+.ellipsis {
+    font-size: 23px;
+    float: left;
+}
+
+.sort_list_module {
+    float: right;
+}
+    
+
+/* 많이 한 질문 키워드 */
+.ranking_keyword_list_area {
+    border-top: 1px solid #f2f2f2;
+}
+
+.ranking_keyword_list_area .ranking_item {
+    margin-top: 8px;
+    padding-bottom: 10px;
+}
+.ranking_item {
+    position: relative;
+    padding: 4px 0 16px 18px;
+    border-bottom: 1px solid #f2f2f2;
+    background: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+}
+
+.ranking_item .no {
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 7px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: #26b049;
+}
+
+.ranking_keyword_link_area {
+    position: relative;
+    display: block;
+    padding-right: 100px;
+}
+
+.ranking_title {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.keyword_num_text {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    font-size: 13px;
+    color: #5885ce;
+    width:80px;
+}
+
+.keyword_num_text .text {
+    display: inline;
+    margin: 0;
+    color: inherit;
+}
+
+.ranking_item .text {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 4px -18px;
+    color: #555;
+}
+
+.keyword_num_text .num {
+	float:left;
+}
+
+.light_on{
+	color: #649dfa;
+	font-size : 15px;
+}

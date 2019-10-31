@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogBoardDao">      <!-- Dao경로설정 -->
+<select id="getBoardByCategory" parameterType="int" resultType="blogboard">
+   select
+      BOARD_NO no,
+      BOARD_TITLE title,
+      BOARD_CONTENTS contents,
+      to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
+      CATEGORY_NO categoryNo,
+      BOARD_MAIN_IMG mainImg
+   from
+      blog_boards
+   where
+      category_no = #{value}
+   order by BOARD_CREATE_DATE desc
+</select>
+<select id="getBoardByboardNo" parameterType="int" resultType="blogboard">
+   select
+      BOARD_NO no,
+      BOARD_TITLE title,
+      BOARD_CONTENTS contents,
+      to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
+      CATEGORY_NO categoryNo,
+      BOARD_MAIN_IMG mainImg
+   from
+      blog_boards
+   where
+      board_no = #{value}
+   order by BOARD_CREATE_DATE desc
+</select>
+<select id="getBoardsByRange" parameterType="map" resultType="blogboard">
+   select
+      row_no rowNo, no, title, contents, createDate, categoryNo, mainImg
+   from(
+      select row_number() OVER(order by board_create_Date desc) row_no,
+            BOARD_NO no,
+            BOARD_TITLE title,
+            BOARD_CONTENTS contents,
+            to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
+            CATEGORY_NO categoryNo,
+            BOARD_MAIN_IMG mainImg
+      from blog_boards
+      where
+          category_No = #{categoryNo}
+      )
+      where
+          row_no &lt;= #{end}
+      and
+          row_no >=#{begin}
+      
+</select>
+<select id="getCommentCountByBoardNo" parameterType="int" resultType="int">
+select
+	count(*)
+	from(
+		select 
+			row_number() OVER(order by board_create_Date desc) row_no
+		from 
+			blog_boards a, blog_boards_comments b
+		where
+			a.board_no = b.board_no
+		and
+			a.board_no = #{value}
+		)
+</select>
+<select id="getBoardsCountByCategoryNo" parameterType="int" resultType="int">
+   select
+      count(*)
+   from
+      blog_boards
+   where
+      category_no = #{value}
+</select>
+<insert id="addBoard" parameterType="blogboard">
+   insert into blog_boards
+   (BOARD_NO,
+	BOARD_TITLE,
+	BOARD_CONTENTS,
+	BOARD_CREATE_DATE,
+	CATEGORY_NO,
+	BOARD_MAIN_IMG)
+   values(blog_seq.nextval, #{title},#{contents},sysdate,#{categoryNo},#{mainImg})
+</insert>
+<select id="countBoardsByCategoryId" parameterType="int" resultType="int">
+   select count(*)
+   from blog_boards
+   where category_no = #{value}
+</select>
+<select id="getBlogsWhoLikeBoard" parameterType="int" resultType="map">
+   select
+      a.likes_NO no,
+      a.BOARD_NO boardNo,
+      a.BLOG_NO blogNo,
+      a.LIKE_CREATE_DATE createDate,
+        b.blog_main_img mainImg,
+        b.blog_title blogTitle,
+        b.blog_description blogDescription,
+        c.user_nickname nickName
+   from
+      blog_Board_Likes a, blog b, users c
+   where
+      a.board_no = #{value}
+    and
+        b.blog_no = a.blog_no
+    and
+        b.user_id = c.user_id
+</select>
+<select id="getisLikedBoardByBloardNoMyBlogNo" parameterType="map" resultType="blogBoardLikes">
+   select
+      likes_NO no,
+      BOARD_NO boardNo,
+      BLOG_NO blogNo,
+      LIKE_CREATE_DATE createDate
+   from
+      blog_Board_Likes
+   where
+      board_no = #{boardNo}
+   and
+      blog_no = #{myBlogNo}
+</select>
+<select id="getBoardLikesCount" parameterType="int" resultType="int">
+   select
+      count(*)
+   from
+      blog_board_likes
+   where
+      board_no = #{value}
+</select>
+<insert id="addNewBlogLikes" parameterType="blogBoardLikes">
+   insert into blog_board_likes
+   values(blog_seq.nextval,#{boardNo},#{blogNo},sysdate)
+</insert>
+<delete id="deleteBoardByBoardNo" parameterType="int">
+	delete
+	from
+		blog_boards
+	where
+		board_no = #{value}
+</delete>
+<delete id="deleteBlogLikes" parameterType="map">
+   delete
+   from
+      blog_board_likes
+   where
+      blog_no = #{myBlogNo}
+   and
+      board_no = #{boardNo}
+</delete>
+<select id="getBoardCommentByBoardNoParentCno" parameterType="map" resultType="hashmap">
+   select
+    a.COMMENT_NO no,
+    a.COMMENT_CONTENTS contents,
+    a.COMMENT_LIKES likes,
+    a.BOARD_NO boardNo,
+    a.COMMENT_CREATE_DATE createDate,
+    a.PARENTCOMMENT_NO parentCommentNo,
+    b.blog_no blogNo,
+    b.blog_main_img blogMainImg,
+    c.user_id userId,
+    c.user_nickname nickName
+from
+    blog_boards_comments a, blog b, users c
+where
+    board_no = #{boardNo}
+and
+   parentcomment_no is null
+and 
+   a.user_id = c.user_id
+and
+   b.user_id = c.user_id
+</select>
+
+<select id="getBoardCommentReplies" parameterType="map" resultType="hashmap">
+   select
+    a.COMMENT_NO no,
+    a.COMMENT_CONTENTS contents,
+    a.COMMENT_LIKES likes,
+    a.BOARD_NO boardNo,
+    a.COMMENT_CREATE_DATE createDate,
+    a.PARENTCOMMENT_NO parentCommentNo,
+    b.blog_no blogNo,
+    b.blog_main_img blogMainImg,
+    c.user_id userId,
+    c.user_nickname nickName
+from
+    blog_boards_comments a, blog b, users c
+where
+    board_no = #{boardNo}
+   <if test="parentCommentNo != null">
+   and
+      parentcomment_no = #{parentCommentNo}
+   </if>
+and 
+   a.user_id = c.user_id
+and
+   b.user_id = c.user_id
+</select>
+<select id="getCommentsCountByBoardNo" parameterType="int" resultType="int">
+   select
+      count(*)
+   from
+      blog_boards_comments
+   where
+      board_no = #{value}
+</select>
+<insert id="addNewComment" parameterType="blogboardcomment">
+insert into blog_boards_comments
+   (COMMENT_NO,
+   COMMENT_CONTENTS,
+   COMMENT_LIKES,
+   BOARD_NO,
+   COMMENT_CREATE_DATE,
+   user_id,
+   PARENTCOMMENT_NO)
+values(
+   blog_seq.nextval, #{contents}, 0, #{boardNo}, sysdate, #{userId}, #{parentCommentNo}
+   )
+</insert>
+<update id="updateBoard" parameterType="blogboard">
+   update blog_boards
+   set
+      BOARD_TITLE = #{title},
+      BOARD_CONTENTS = #{contents},
+      CATEGORY_NO = #{categoryNo},
+      BOARD_MAIN_IMG = #{mainImg}
+   where
+      BOARD_NO = #{no}   
+</update>
+<select id="getBoardCommentsInMyBlog" parameterType="map" resultType="map">
+	select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no,
+        a.comment_contents contents, a.board_no boardNo, f.user_id userId, b.board_title title, f.user_nickname nickName, a.comment_create_date createDate
+from blog_boards_comments a, blog_boards b, blog_category c, blog_subcategory d, blog e, users f, blog g
+where
+    a.board_no = b.board_no
+and
+    b.category_no = c.category_no
+and
+    c.subcategory_no = d.subcategory_no
+and
+    d.blog_no = e.blog_no
+and
+    a.user_id = f.user_id
+and
+    d.blog_no = #{myBlogNo}
+and
+    a.user_id != #{myUserId}
+and
+    f.user_id = g.user_id
+
+</select>
+</mapper>

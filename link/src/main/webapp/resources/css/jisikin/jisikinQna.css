@@ -1,0 +1,785 @@
+<<<<<<< HEAD
+div {
+    display: block;
+}
+
+.spot_area {
+    border : 2px solid gray;
+}
+
+ul, li {
+    list-style: none;
+}
+
+.wrap_qna .spot_area {
+    position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+    padding-bottom: 2px;
+}
+
+.wrap_qna .spot_area_inner {
+    position: relative;
+    width: 100%;
+    padding: 1px 1px 0;
+}
+
+.wrap_qna .spot_area .s_header {
+    position: relative;
+    border-bottom: 1px solid #e6e8da;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_tit.gif) repeat-x;
+    zoom: 1;
+    z-index: 1;
+}
+
+.wrap_qna .spot_area .s_header h2 {
+    padding: 12px 0 8px 24px;
+    color: #148200;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -1px;
+}
+
+.wrap_qna .spot_area .ques_cnt {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+dl {
+    display: block;
+}
+
+.wrap_qna .spot_area .ques_cnt dt.itm {
+    width: 65px;
+    background-position: 0 0;
+}
+
+.wrap_qna .spot_area .ques_cnt dt {
+    overflow: hidden;
+    float: left;
+    height: 10px;
+    margin: 3px 7px 0 15px;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/sp_opt_cnt.gif) no-repeat 0 0;
+    line-height: 999px;
+}
+
+.wrap_qna .spot_area .ques_cnt dd {
+    float: left;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Tahoma,sans-serif;
+    color: #484848;
+    vertical-align: top;
+}
+
+
+/* s-body */
+.wrap_qna .spot_area .s_body {
+    position: relative;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_body.gif) left bottom;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory {
+    overflow: hidden;
+    margin: -1px 25px 1px;
+    padding: 12px 0 13px;
+    border-top: 1px solid #eee;
+    line-height: 18px;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory ul {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory ul li {
+    float: left;
+    width: 33%;
+    height: 20px;
+    padding: 1px 0 0;
+    color: #838383;
+}
+
+.wrap_qna .spot_area .spot_directory ul li a {
+    color: #161616;
+    line-height: 20px;
+    font-size: 12px;
+    zoom: 1;
+    text-decoration: none;
+}
+
+
+/* no answer-list*/
+
+.board_box {
+    position: relative;
+    width: 100%;
+    padding: 12px 25px 44px 25px;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_table_top3.gif) repeat-x 0 -1px;
+    border: 1px solid #c9c9c9;
+    z-index: 20;
+}
+
+.boardtype2 {
+    clear: both;
+    position: relative;
+    z-index: 12;
+    border-collapse: collapse;
+}
+
+table[Attributes Style] {
+    width: 100%;
+}
+user agent stylesheet
+table {
+    display: table;
+    border-color: grey;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.boardtype2 thead th.title {
+    text-align: center;
+}
+.boardtype2 thead th {
+    padding: 14px 0 22px 0;
+    font-size: 11px;
+    color: #585858;
+    font-weight: normal;
+    text-align: left;
+}
+
+.boardtype2 thead th.title .option_grade {
+    position: absolute;
+    left: 0;
+    width: 33px;
+}
+.boardtype2 thead th a {
+    color: #585858;
+}
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.boardtype2 tbody td.title {
+    padding: 8px 15px 6px 0;
+    font-size: 12px;
+    word-break: break-all;
+    white-space: normal;
+}
+.boardtype2 tbody td {
+    padding: 7px 0 6px;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 11px;
+    line-height: 18px;
+    color: #848484;
+}
+
+.boardtype2 tbody td.field {
+    padding-top: 8px;
+}
+
+.boardtype2 tbody td.t_num {
+    padding: 7px 1px;
+}
+
+.paginate {
+    width: 100%;
+    padding: 13px 0 22px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.paginate a.on {
+    margin: -1px -1px 0 0;
+    border: 1px solid #e9e9e9;
+    color: #e85028;
+}
+.paginate a {
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 1px 0 2px;
+    padding: 0 8px;
+    color: #000;
+    font-size: 12px;
+    font-family: Tahoma,sans-serif;
+    font-weight: bold;
+    text-decoration: none !important;
+    vertical-align: top;
+}
+
+.search {
+    position: relative;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.search fieldset {
+    color: #c4c4c4;
+    text-align: center;
+}
+
+input {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: start;
+    font: 400 13.3333px Arial;
+}
+
+legend {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+}
+
+#au_search_submit {
+    vertical-align: bottom;
+}
+
+
+/* 로그인 한 후 */
+.aside_myinfo {
+    display: inline-block;
+}
+
+.aside_myinfo .my_wrap {
+    overflow: hidden;
+    position: relative;
+    padding: 15px 14px 16px 16px;
+    background-color: #f8f8f8;
+}
+
+.aside_myinfo .my_wrap>a {
+    margin-right: 48px;
+}
+
+.aside_myinfo .my_photo {
+    overflow: hidden;
+    float: left;
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 1px solid #ccc;
+    border-radius: 46px;
+}
+
+.aside_myinfo .my_photo img {
+    width: 50px;
+    height: 50px;
+    top: -2px;
+}
+
+.aside_myinfo .my_service {
+    float: left;
+    margin-left: 8px;
+}
+
+.aside_myinfo .my_service .user_id {
+    width: 140px;
+    margin-top: 3px;
+    font-weight: bold;
+    line-height: 17px;
+    font-size: 13px;
+    color: #000;
+}
+
+.aside_myinfo .my_service .user_mykin {
+    padding-top : -20px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666;
+}
+
+.aside_myinfo .my_service .user_mykin>span {
+    font-size: 10px;
+    color: #bbb;
+}
+
+.aside_myinfo .btn_login_area {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    border: 1px solid #fff;
+}
+
+.mykin_wrap {
+    display: inline;
+}
+
+.mykin_tab_content.tc-selected {
+    display: block;
+}
+
+.mykin_tab_content .scroll_area {
+    position: relative;
+    padding: 0 19px;
+}
+
+.aside .gradeup_info {
+    padding-top: 29px;
+}
+
+.grd_lv4, .gradeup_info .grade4, .gradeup_state .grade4 .tit, .my_spec .grade4 {
+    color: #649dfa;
+}
+
+.aside .gradeup_info .mylv {
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.aside .gradeup_info .gauge {
+    display: inline-block;
+    position: relative;
+    width: 220px;
+    height: 28px;
+    font-size: 12px;
+}
+
+.aside .gradeup_info .grd_wrap {
+    margin-top: 0;
+    width: 100%;
+    height: 4px;
+    background: #dee3ea;
+    position : relative;
+}
+.aside .gradeup_info .gauge .my_level_num {
+    margin-top: 10px;
+    line-height: 14px;
+    color: #888;
+    font-weight: bold;
+    text-align: center;
+}
+
+.aside_myinfo .btn_login {
+    display: block;
+    height: 17px;
+    padding: 0 5px;
+    border: 1px solid #d8d8d8;
+    background-color: #fff;
+    line-height: 17px;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+=======
+div {
+    display: block;
+}
+
+.spot_area {
+    border : 2px solid gray;
+}
+
+ul, li {
+    list-style: none;
+}
+
+.wrap_qna .spot_area {
+    position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+    padding-bottom: 2px;
+}
+
+.wrap_qna .spot_area_inner {
+    position: relative;
+    width: 100%;
+    padding: 1px 1px 0;
+}
+
+.wrap_qna .spot_area .s_header {
+    position: relative;
+    border-bottom: 1px solid #e6e8da;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_tit.gif) repeat-x;
+    zoom: 1;
+    z-index: 1;
+}
+
+.wrap_qna .spot_area .s_header h2 {
+    padding: 12px 0 8px 24px;
+    color: #148200;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -1px;
+}
+
+.wrap_qna .spot_area .ques_cnt {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+dl {
+    display: block;
+}
+
+.wrap_qna .spot_area .ques_cnt dt.itm {
+    width: 65px;
+    background-position: 0 0;
+}
+
+.wrap_qna .spot_area .ques_cnt dt {
+    overflow: hidden;
+    float: left;
+    height: 10px;
+    margin: 3px 7px 0 15px;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/sp_opt_cnt.gif) no-repeat 0 0;
+    line-height: 999px;
+}
+
+.wrap_qna .spot_area .ques_cnt dd {
+    float: left;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Tahoma,sans-serif;
+    color: #484848;
+    vertical-align: top;
+}
+
+
+/* s-body */
+.wrap_qna .spot_area .s_body {
+    position: relative;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_body.gif) left bottom;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory {
+    overflow: hidden;
+    margin: -1px 25px 1px;
+    padding: 12px 0 13px;
+    border-top: 1px solid #eee;
+    line-height: 18px;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory ul {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.wrap_qna .spot_area .spot_directory ul li {
+    float: left;
+    width: 33%;
+    height: 20px;
+    padding: 1px 0 0;
+    color: #838383;
+}
+
+.wrap_qna .spot_area .spot_directory ul li a {
+    color: #161616;
+    line-height: 20px;
+    font-size: 12px;
+    zoom: 1;
+    text-decoration: none;
+}
+
+
+/* no answer-list*/
+
+.board_box {
+    position: relative;
+    width: 100%;
+    padding: 12px 25px 44px 25px;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_table_top3.gif) repeat-x 0 -1px;
+    border: 1px solid #c9c9c9;
+    z-index: 20;
+}
+
+.boardtype2 {
+    clear: both;
+    position: relative;
+    z-index: 12;
+    border-collapse: collapse;
+}
+
+table[Attributes Style] {
+    width: 100%;
+}
+user agent stylesheet
+table {
+    display: table;
+    border-color: grey;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.boardtype2 thead th.title {
+    text-align: center;
+}
+.boardtype2 thead th {
+    padding: 14px 0 22px 0;
+    font-size: 11px;
+    color: #585858;
+    font-weight: normal;
+    text-align: left;
+}
+
+.boardtype2 thead th.title .option_grade {
+    position: absolute;
+    left: 0;
+    width: 33px;
+}
+.boardtype2 thead th a {
+    color: #585858;
+}
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.boardtype2 tbody td.title {
+    padding: 8px 15px 6px 0;
+    font-size: 12px;
+    word-break: break-all;
+    white-space: normal;
+}
+.boardtype2 tbody td {
+    padding: 7px 0 6px;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 11px;
+    line-height: 18px;
+    color: #848484;
+}
+
+.boardtype2 tbody td.field {
+    padding-top: 8px;
+}
+
+.boardtype2 tbody td.t_num {
+    padding: 7px 1px;
+}
+
+.paginate {
+    width: 100%;
+    padding: 13px 0 22px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.paginate a.on {
+    margin: -1px -1px 0 0;
+    border: 1px solid #e9e9e9;
+    color: #e85028;
+}
+.paginate a {
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 1px 0 2px;
+    padding: 0 8px;
+    color: #000;
+    font-size: 12px;
+    font-family: Tahoma,sans-serif;
+    font-weight: bold;
+    text-decoration: none !important;
+    vertical-align: top;
+}
+
+.search {
+    position: relative;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.search fieldset {
+    color: #c4c4c4;
+    text-align: center;
+}
+
+input {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: start;
+    font: 400 13.3333px Arial;
+}
+
+legend {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+}
+
+#au_search_submit {
+    vertical-align: bottom;
+}
+
+
+/* 로그인 한 후 */
+.aside_myinfo {
+    display: inline-block;
+}
+
+.aside_myinfo .my_wrap {
+    overflow: hidden;
+    position: relative;
+    padding: 15px 14px 16px 16px;
+    background-color: #f8f8f8;
+}
+
+.aside_myinfo .my_wrap>a {
+    margin-right: 48px;
+}
+
+.aside_myinfo .my_photo {
+    overflow: hidden;
+    float: left;
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 1px solid #ccc;
+    border-radius: 46px;
+}
+
+.aside_myinfo .my_photo img {
+    width: 50px;
+    height: 50px;
+    top: -2px;
+}
+
+.aside_myinfo .my_service {
+    float: left;
+    margin-left: 8px;
+}
+
+.aside_myinfo .my_service .user_id {
+    width: 140px;
+    margin-top: 3px;
+    font-weight: bold;
+    line-height: 17px;
+    font-size: 13px;
+    color: #000;
+}
+
+.aside_myinfo .my_service .user_mykin {
+    padding-top : -20px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666;
+}
+
+.aside_myinfo .my_service .user_mykin>span {
+    font-size: 10px;
+    color: #bbb;
+}
+
+.aside_myinfo .btn_login_area {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    border: 1px solid #fff;
+}
+
+.mykin_wrap {
+    display: inline;
+}
+
+.mykin_tab_content.tc-selected {
+    display: block;
+}
+
+.mykin_tab_content .scroll_area {
+    position: relative;
+    padding: 0 19px;
+}
+
+.aside .gradeup_info {
+    padding-top: 29px;
+}
+
+.grd_lv4, .gradeup_info .grade4, .gradeup_state .grade4 .tit, .my_spec .grade4 {
+    color: #649dfa;
+}
+
+.aside .gradeup_info .mylv {
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.aside .gradeup_info .gauge {
+    display: inline-block;
+    position: relative;
+    width: 220px;
+    height: 28px;
+    font-size: 12px;
+}
+
+.aside .gradeup_info .grd_wrap {
+    margin-top: 0;
+    width: 100%;
+    height: 4px;
+    background: #dee3ea;
+    position : relative;
+}
+.aside .gradeup_info .gauge .my_level_num {
+    margin-top: 10px;
+    line-height: 14px;
+    color: #888;
+    font-weight: bold;
+    text-align: center;
+}
+
+.aside_myinfo .btn_login {
+    display: block;
+    height: 17px;
+    padding: 0 5px;
+    border: 1px solid #d8d8d8;
+    background-color: #fff;
+    line-height: 17px;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+>>>>>>> master

@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BandDao">		<!-- Dao경로설정 -->
+	<select id="getAllLogoImg" resultType="bandLogoImg" parameterType="map">
+		select
+			imgNo no,
+			imgName name
+		from
+			band_into_img
+		where 
+			imgNo >= #{begin}
+		and 
+			imgNo &lt;= #{end}
+	</select>
+	
+	<insert id="addBand" parameterType="band">
+		insert into band
+			(band_no, band_name, band_photo, band_typeoption, master_id)
+		values
+			(band_seq.nextval, #{name}, #{photo}, #{bandTypeOption}, #{user.id})
+	</insert>
+	
+	<select id="getBandByName" parameterType="string" resultType="band">
+		select 
+			BAND_NO no,
+			BAND_NAME name,
+			BAND_PHOTO photo,
+			BAND_TYPEOPTION bandTypeOption,
+			BAND_CREATE_DATE createDate,
+			MASTER_ID "user.id"
+		from
+			band
+		where
+			band_name = #{value}
+	</select>
+	
+	<!-- 가입하지 않은 밴드 보여주기 -->
+	<select id="getNotJoinBandByUserId" parameterType="string" resultType="band">
+		select 
+		    BAND_NO no,
+		    BAND_NAME name,
+		    BAND_PHOTO photo,
+		    BAND_TYPEOPTION bandTypeOption,
+		    BAND_CREATE_DATE createDate,
+		    MASTER_ID "user.id"
+		from 
+		    band
+		where
+		    band_no in (select band_no
+		                from
+		                    band_join_history
+		                where
+		                    user_id != #{value})
+		and 
+			BAND_TYPEOPTION != 'allSecret'
+		and 
+			MASTER_ID != #{value}
+		order by 
+    		band_no desc
+	</select>
+	
+	<select id="getBandByNo" parameterType="int" resultType="band">
+		select 
+			BAND_NO no,
+			BAND_NAME name,
+			BAND_PHOTO photo,
+			BAND_TYPEOPTION bandTypeOption,
+			BAND_CREATE_DATE createDate,
+			MASTER_ID "user.id"
+		from
+			band
+		where
+			band_no = #{value}
+	</select>
+	
+	<insert id="addBandHistory" parameterType="bandhistory">
+		insert into band_join_history
+			(his_no, band_no, user_id, master_yn)
+		values
+			(his_seq.nextval, #{bandNo}, #{userId}, #{masterYn})
+	</insert>
+	
+	<select id="getAllJoinBand" resultType="band" parameterType="string">
+		select
+		    BAND_NO no,
+		    BAND_NAME name,
+		    BAND_PHOTO photo,
+		    BAND_TYPEOPTION bandTypeOption,
+		    BAND_CREATE_DATE createDate,
+		    MASTER_ID "user.id"
+		from
+		    band
+		where
+		    band_no in (select band_no
+		                from band_join_history
+		                where user_id = #{value})
+	</select>
+	
+	<select id="getJoinCount" resultType="int" parameterType="int">
+		select 
+		    count(*)
+		from 
+		    band_join_history
+		where 
+		    band_no = #{value}
+	</select>
+	
+	<!-- 밴드 가입한 멤버들 조회 -->
+	<select id="getJoinMembers" resultType="user" parameterType="int">
+		select
+			USER_ID id,
+			USER_NAME name,
+			USER_PASSWORD password,
+			USER_NICKNAME nickName,
+			USER_PHONE phone,
+			USER_POINT point,
+			USER_MENTAL_POINT mentalPoint,
+			USER_ISHAVEBLOG isHaveBlog
+		from
+			USERS
+		where 
+			USER_ID in (select
+							USER_ID
+						from
+							BAND_JOIN_HISTORY
+						where
+							BAND_NO = #{value})
+	</select>
+	
+	<!-- 밴드 가입한 회원 이름으로 조회하기 -->
+	<select id="getJoinMemberByNameAndBandNo" resultType="user" parameterType="hashmap">
+		select
+			USER_ID id,
+			USER_NAME name,
+			USER_PASSWORD password,
+			USER_NICKNAME nickName,
+			USER_PHONE phone,
+			USER_POINT point,
+			USER_MENTAL_POINT mentalPoint,
+			USER_ISHAVEBLOG isHaveBlog
+		from
+			USERS
+		where 
+			USER_ID in (select
+							USER_ID
+						from
+							BAND_JOIN_HISTORY
+						where
+							BAND_NO = #{bandNo})
+		and
+			user_name like '%'||#{userName}||'%'
+	</select>
+	
+	<!-- 밴드 가입여부 확인 -->
+	<select id="getJoinBands" parameterType="string" resultType="bandhistory">
+		select
+		    HIS_NO no,
+		    BAND_NO bandNo,
+		    USER_ID userId,
+		    MASTER_YN masterYn
+		from
+		    BAND_JOIN_HISTORY
+		where
+		    user_id = #{value}
+	</select>
+	
+	<select id="getBandHomeWriteSeq" resultType="int">
+		select band_write_seq.nextval
+		from dual
+	</select>
+	
+	<insert id="addBandHomeWriteStart" parameterType="bandHomeContent">
+		insert into BAND_WRITE
+			(WRITE_NO, BAND_NO, USER_ID)
+		values
+			(#{writeNo}, #{bandNo}, #{user.id})
+	</insert>
+	
+	<update id="updateBandHomeWriteByWriteNoToStart" parameterType="bandHomeContent">
+		update 
+			BAND_WRITE
+		set 
+			WRITE_CONTENTS = #{contents},
+			WRITE_NOTICE_YN = #{noticeYn},
+			WRITE_DISPLAY_YN = #{displaylYn}
+		where
+			WRITE_NO = #{writeNo}
+		 
+	</update>
+	
+	<select id="getBandHomeWriteByWriteNo" parameterType="int" resultType="bandHomeContent">
+		select
+			WRITE_NO writeNo,
+			BAND_NO bandNo,
+			WRITE_CONTENTS contents,
+			WRITE_CREATE_DATE createDate,
+			WRITE_NOTICE_YN noticeYn,
+			WRITE_DISPLAY_YN displaylYn,
+			USER_ID "user.id"
+		from
+			BAND_WRITE
+		where 
+			WRITE_NO = #{writeNo}
+	</select>
+	
+	<select id="getBandHomeWriteByBandNo" parameterType="int" resultType="bandHomeContent">
+		select
+			w.WRITE_NO writeNo,
+			w.BAND_NO bandNo,
+			w.WRITE_CONTENTS contents,
+			w.WRITE_CREATE_DATE createDate,
+			w.WRITE_NOTICE_YN noticeYn,
+			w.WRITE_DISPLAY_YN displaylYn,
+			w.USER_ID "user.id",
+			u.USER_NAME "user.name"
+		from
+			BAND_WRITE w, USERS u
+		where 
+			w.BAND_NO = #{value}
+		and
+			w.user_id = u.user_id
+		order by
+			w.write_no desc
+	</select>
+	
+	<select id="getBandHomeWriteContentSeq" resultType="int">
+		select band_content_seq.nextval
+		from dual
+	</select>
+	
+	<insert id="addBandHomeWriteContent" parameterType="bandHomeContent">
+		insert into BAND_WRITE_CONTENTS
+			(CONTENTS_NO, WRITE_NO, ROW_NUM, CONTENTS_TYPE)
+		values
+			(#{ContentNo}, #{writeNo}, #{rowNum}, #{contentType})
+	</insert>
+	
+	<insert id="addBandContentsText" parameterType="bandContentText">
+		insert into BAND_CONTENTS_TEXT
+			(TEXT_NO, CONTENTS_NO, TEXT_CONTENTS)
+		values
+			(band_text_seq.nextval, #{ContentNo}, #{TextContents})
+	</insert>
+	
+	<delete id="delBandVoteCancel" parameterType="int">
+		delete band_vote
+		where write_no = #{value}
+	</delete>
+	
+	<delete id="delBandTodoCancel" parameterType="int">
+		delete band_todo
+		where write_no = #{value}
+	</delete>
+	
+	<delete id="delBandJoinCancel" parameterType="int">
+		delete band_join
+		where write_no = #{value}
+	</delete>
+	
+	<delete id="delBandNbbangCancel" parameterType="int">
+		delete band_nbbang
+		where write_no = #{value}
+	</delete>
+	
+	<delete id="delbandWriteCancel" parameterType="int">
+		delete band_write
+		where write_no = #{value}
+	</delete>
+	
+	<delete id="delBandVoteItemCancel" parameterType="int">
+		delete BAND_VOTE_ITEMS
+		where VOTE_NO in (select VOTE_NO
+		                    from BAND_VOTE
+		                    where WRITE_NO = #{value})
+	</delete>
+	
+	<select id="getVoteSeq" resultType="int">
+		select
+		    band_vote_seq.nextval
+		from
+		    dual
+	</select>
+	
+	<insert id="addBandVoteStart" parameterType="bandVote">
+		insert into BAND_VOTE
+			(VOTE_NO, VOTE_TITLE, VATE_MULTIPLE_YN, VOTE_EVERYONE_ADD, VOTE_CURRENT_VIEW, VOTE_SOLT, WRITE_NO)
+		values
+			(#{voteNo}, #{title}, #{MultipleYn}, #{everyOneAdd}, #{currentView}, #{solt}, #{writeNo})
+	</insert>
+	
+	<insert id="addBandVoteItemStart" parameterType="bandVote">
+		insert into BAND_VOTE_ITEMS
+			(VOTE_ITEM_NO, VOTE_NO, VOTE_CONTENTS)
+		values
+			(band_vote_item_seq.nextval, #{voteNo}, #{hangmocSamll})
+	</insert>
+	
+	<select id="getBandVoteByWriteNo" parameterType="int" resultType="bandVote">
+		select 
+		    VOTE_NO voteNo,
+		    VOTE_TITLE title,
+		    VOTE_EVERYONE_ADD everyOneAdd,
+		    VATE_MULTIPLE_YN MultipleYn,
+		    VOTE_CURRENT_VIEW currentView,
+		    VOTE_SOLT solt,
+		    WRITE_NO writeNo
+		from
+		    BAND_VOTE
+		where
+		    WRITE_NO = #{value}
+	</select>
+	
+	<select id="getBandVoteByVoteNo" parameterType="int" resultType="bandVote">
+		select 
+		    VOTE_NO voteNo,
+		    VOTE_TITLE title,
+		    VOTE_EVERYONE_ADD everyOneAdd,
+		    VATE_MULTIPLE_YN MultipleYn,
+		    VOTE_CURRENT_VIEW currentView,
+		    VOTE_SOLT solt,
+		    WRITE_NO writeNo
+		from
+		    BAND_VOTE
+		where
+		    VOTE_NO = #{value}
+	</select>
+	
+	<select id="getBandVoteItemByVoteNo" parameterType="int" resultType="bandVote">
+		select
+			VOTE_ITEM_NO voteItemNo,
+			VOTE_NO voteNo,
+			VOTE_CONTENTS hangmocSamll,
+			VOTE_COUNT count
+		from
+			BAND_VOTE_ITEMS
+		where
+			VOTE_NO = ${value}
+	</select>
+	
+	<delete id="delBandVoteByVoteNo" parameterType="int">
+		delete
+			band_vote
+		where
+			vote_no = #{voteNo}
+	</delete>
+	
+	<delete id="delBandVoteItemsByVoteNo" parameterType="int">
+		delete
+			band_vote_items
+		where
+			vote_no = #{voteNo}
+	</delete>
+	 
+	<select id="getTodoSeq" resultType="int">
+		select 
+			band_todo_seq.nextval
+		from
+			dual
+	</select>
+	
+	<insert id="addBandTodoStart" parameterType="bandTodo">
+		insert into BAND_TODO
+			(TODO_NO, TODO_TITLE, WRITE_NO)
+		values
+			(#{todoNo}, #{title}, #{writeNo})
+	</insert>
+	
+	<insert id="addBandTodoItemsStart" parameterType="bandTodo">
+		insert into BAND_TODO_ITEMS
+			(TODO_ITEM_NO, TODO_NO, TODO_CONTENTS)
+		values
+			(band_todo_items_seq.nextval, #{todoNo}, #{hangmocSmall})
+	</insert>
+	
+	<select id="getBandTodoByWriteNo" parameterType="int" resultType="bandTodo">
+		select
+			TODO_NO todoNo,
+			TODO_TITLE title,
+			WRITE_NO writeNo
+		from
+			band_todo
+		where
+			WRITE_NO = #{value}
+	</select>
+	
+	<select id="getBandTodoByTodoNo" parameterType="int" resultType="bandTodo">
+		select
+			TODO_NO todoNo,
+			TODO_TITLE title,
+			WRITE_NO writeNo
+		from
+			band_todo
+		where
+			TODO_NO = #{value}
+	</select>
+	
+	<select id="getBandTodoItemsByTodoNo" parameterType="int" resultType="bandTodo">
+		select
+			TODO_ITEM_NO todoItemNo,
+			TODO_NO todoNo,
+			TODO_CONTENTS hangmocSmall,
+			COMPLET_YN completYn
+		from
+			BAND_TODO_ITEMS
+		where
+			TODO_NO = #{value}
+	</select>
+	
+	<delete id="delBandTodoItemsByTodoNo" parameterType="int">
+		delete
+			BAND_TODO_ITEMS
+		where
+			TODO_NO = #{value}
+	</delete>
+	
+	<delete id="delBandTodoByTodoNo" parameterType="int">
+		delete
+			BAND_TODO
+		where
+			TODO_NO = #{value}
+	</delete>
+	
+	<delete id="delBandTodoItemCancel" parameterType="int">
+		delete BAND_TODO_ITEMS
+		where TODO_NO in (select TODO_NO
+		                    from BAND_TODO
+		                    where WRITE_NO = #{value})
+	</delete>
+	
+	<select id="getJoinSeq" resultType="int">
+		select
+		    band_join_seq.nextval
+		from
+		    dual
+	</select>
+	
+	<insert id="addBandJoinStart" parameterType="bandJoin">
+		insert into BAND_JOIN
+			(JOIN_NO, JOIN_TITLE, START_DATE, END_DATE_YN, END_DATE, END_DATE_TIME, WRITE_NO, PEPLE_LIMIT)
+		values
+			(#{JoinNo}, #{title}, #{startDate}, #{endTimeCheck}, #{endDate}, #{endTime}, #{writeNo}, #{pepleLimit})
+	</insert>
+	
+	<insert id="addBandJoinItemsStart" parameterType="bandJoin">
+		insert into BAND_JOIN_ITEMS
+			(JOIN_ITEM_NO, JOIN_NO, HANGMOC)
+		values
+			(band_join_items_seq.nextval, #{JoinNo}, #{hangmocSmall})
+	</insert>
+	
+	<select id="getBandJoinByWriteNo" parameterType="int" resultType="bandJoin">
+		select
+			JOIN_NO JoinNo,
+			JOIN_TITLE title,
+			START_DATE startDate,
+			END_DATE_YN endTimeCheck,
+			END_DATE endDate,
+			WRITE_NO writeNo,
+			JOIN_COUNT joinCount,
+			PEPLE_LIMIT pepleLimit, 
+			END_DATE_TIME endTime
+		from
+			BAND_JOIN
+		where 
+			WRITE_NO = #{writeNo}
+	</select>
+	
+	<select id="getBandJoinByJoinNo" parameterType="int" resultType="bandJoin">
+		select
+			JOIN_NO JoinNo,
+			JOIN_TITLE title,
+			START_DATE startDate,
+			END_DATE_YN endTimeCheck,
+			END_DATE endDate,
+			WRITE_NO writeNo,
+			JOIN_COUNT joinCount,
+			PEPLE_LIMIT pepleLimit, 
+			END_DATE_TIME endTime
+		from
+			BAND_JOIN
+		where 
+			JOIN_NO = #{writeNo}
+	</select>
+	
+	<select id="getBandJoinItemByJoinNo" parameterType="int" resultType="bandJoin">
+		select
+			JOIN_ITEM_NO joinItemNo,
+			JOIN_NO JoinNo,
+			HANGMOC hangmocSmall
+		from
+			BAND_JOIN_ITEMS
+		where 
+			JOIN_NO = #{writeNo}
+	</select>
+	
+	<delete id="delBandJoinItemsCancel" parameterType="int">
+		delete BAND_JOIN_ITEMS
+		where JOIN_NO in (select JOIN_NO
+		                    from BAND_JOIN
+		                    where WRITE_NO = #{value})
+	</delete>
+	
+	<delete id="delBandJoinItemsByJoinNo" parameterType="int">
+		delete
+			BAND_JOIN_ITEMS
+		where
+			JOIN_NO = #{JoinNo}
+	</delete>
+	
+	<delete id="delBandJoinByJoinNo" parameterType="int">
+		delete
+			BAND_JOIN
+		where
+			JOIN_NO = #{JoinNo}
+	</delete>
+	
+	<select id="getNbbangSeq" resultType="int">
+		select 
+			band_nbbang_seq.nextval
+		from
+			dual
+	</select>
+	
+	<insert id="addBandNbbangStrart" parameterType="bandNbbang">
+		insert into BAND_NBBANG
+			(NBB_NO, PRICE, WRITE_NO)
+		values
+			(#{nbbNo}, #{price}, #{writeNo})
+	</insert>
+	
+	<insert id="addBandNbbangItemsStart" parameterType="bandNbbang">
+		insert into BAND_NBBANG_ITEMS
+			(ITEM_NO, ITEM_PERSON, NBB_NO)
+		values
+			(band_nbbang_items_seq.nextval, #{person}, #{nbbNo})
+	</insert>
+	
+	<select id="getBandNbbangByWriteNo" parameterType="int">
+		select
+			NBB_NO nbbNo,
+			PRICE price,
+			WRITE_NO writeNo
+		from
+			BAND_NBBANG
+		where 
+			WRITE_NO = #{value}
+	</select>
+	
+	<delete id="delBandNbbangItemsCancel" parameterType="int">
+		delete BAND_NBBANG_ITEMS
+		where NBB_NO in (select NBB_NO
+		                    from BAND_NBBANG
+		                    where WRITE_NO = #{value})
+	</delete>
+	
+	<delete id="delBandNbbangItemsByNbbNo" parameterType="int">
+		delete
+			BAND_NBBANG_ITEMS
+		where
+			NBB_NO = #{value}
+	</delete>
+	
+	<delete id="delBandNbbangByNbbNo" parameterType="int">
+		delete
+			BAND_NBBANG
+		where
+			NBB_NO = #{value}
+	</delete>
+	
+	<select id="getNbbangItemsCountByNbbNo" parameterType="int" resultType="int">
+		select 
+		    count(*)
+		from
+		    BAND_NBBANG_ITEMS
+		where
+		    NBB_NO = #{value}
+	</select>
+	
+	<!-- 밴드 엔빵 선택된 멤버들 조회 -->
+	<select id="getNbbangMemberBySelect" resultType="user" parameterType="int">
+		select
+			USER_ID id,
+			USER_NAME name,
+			USER_PASSWORD password,
+			USER_NICKNAME nickName,
+			USER_PHONE phone,
+			USER_POINT point,
+			USER_MENTAL_POINT mentalPoint,
+			USER_ISHAVEBLOG isHaveBlog
+		from
+			USERS
+		where 
+			USER_ID in (select
+							ITEM_PERSON
+						from
+							BAND_NBBANG_ITEMS
+						where
+							NBB_NO = #{value})
+	</select>
+	
+	<update id="updateNbbangByNbbNo" parameterType="bandNbbang">
+		update 
+			BAND_NBBANG
+		set
+			PRICE = #{price}
+		where
+			NBB_NO = #{nbbNo}
+	</update>
+	
+	<select id="getBandNbbangByNbbNo" parameterType="int" resultType="bandNbbang">
+		select
+			NBB_NO nbbNo,
+			PRICE price,
+			WRITE_NO writeNo
+		from
+			BAND_NBBANG
+		where 
+			NBB_NO = #{value}
+	</select>
+	
+	<select id="getBandNbbangItemByNbbNo" parameterType="int" resultType="bandNbbang">
+		select
+			n.ITEM_NO nbbItemNo,
+			u.USER_NAME person,
+			n.NBB_NO nbbNo
+		from
+			BAND_NBBANG_ITEMS n, users u
+		where 
+			NBB_NO = #{value}
+		and
+			n.ITEM_PERSON = u.USER_ID
+	</select>
+	
+	<select id="getBandWriteContentImgByBandNo" parameterType="int" resultType="bandHomeContent">
+		select
+		    WRITE_NO writeNo,
+		    BAND_NO bandNo,
+		    WRITE_CONTENTS contents,
+		    WRITE_CREATE_DATE createDate,
+		    WRITE_NOTICE_YN noticeYn,
+		    WRITE_DISPLAY_YN displaylYn,
+		    USER_ID "user.id"
+		from 
+		    band_write
+		where
+		    band_no = #{value}
+		and
+		    WRITE_CONTENTS like '%link/resources/images/bandUploadImg/%'
+		order by 
+		    write_no desc
+	</select>
+	
+	<insert id="addBandWritePhoto" parameterType="bandWritePhoto">
+		insert into band_write_photo
+			(photo_no, photo_name, write_no, band_no)
+		values
+			(band_write_photo_seq.nextval, #{photoName}, #{writeNo}, #{bandNo})
+	</insert>
+	
+	<select id="getbandWritePhotoByBandNo" parameterType="int" resultType="bandWritePhoto">
+		select
+			photo_no photoNo,
+			photo_name photoName,
+			write_no writeNo,
+			band_no bandNo
+		from
+			BAND_WRITE_PHOTO
+		where
+			band_no = #{value}
+		order by
+			photo_no desc
+	</select>
+</mapper>

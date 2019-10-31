@@ -1,0 +1,554 @@
+.wrap_hall .grid_inner {
+    position: relative;
+    margin-top: 6px;
+    background-color: #fff;
+    border: 1px solid #dde0e3;
+    height: 180px;
+}
+
+.wrap_hall .uio_top {
+    position: relative;
+    padding: 0 40px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.wrap_hall .uio_top .tit {
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    padding: 15px 0 16px;
+    font-weight: 600;
+}
+
+.wrap_hall .section_keyword_qa .article_list>ul {
+    width: 100%;
+}
+
+
+.wrap_hall .section_keyword_qa .article_list .top_list .list_divide {
+    float: left;
+    width: 380px;
+    padding-top: 30px;
+    padding-bottom: 28px;
+}
+
+.wrap_hall .section_keyword_qa .article_list .top_list .list_divide:first-child .list_item {
+    border-left: 0;
+}
+.wrap_hall .section_keyword_qa .article_list .top_list .list_divide.first .list_item {
+    padding-left: 40px;
+}
+.wrap_hall .section_keyword_qa .article_list .top_list .list_item {
+    position: relative;
+    display: block;
+    padding: 0 30px;
+    text-align: left;
+    border-left: 1px solid #ededed;
+    z-index: 2;
+}
+
+.wrap_hall a, .wrap_hall a:hover {
+    text-decoration: none;
+}
+
+.wrap_hall li {
+    list-style: none;
+}
+
+.wrap_hall .section_keyword_qa .list_item .list_body {
+    position: relative;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .rank {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 36px;
+    height: 36px;
+    background-color: #00c73c;
+    font-size: 18px;
+    line-height: 35px;
+    color: #fff;
+    text-align: center;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .heading {
+    display: block;
+    margin-left: 48px;
+    height: 60px;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .heading .tit {
+    font-size: 16px;
+    line-height: 20px;
+    max-height: 42px;
+    display: -webkit-box;
+    white-space: normal;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .heading .text {
+    display: block;
+    padding-top: 1px;
+    font-size: 12px;
+    color: #888;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .heading .text .ico_arrow_rl {
+    margin-top: 2px;
+    margin-left: 4px;
+}
+.sp_hall.ico_arrow_rl {
+    width: 7px;
+    height: 11px;
+    background-position: -148px -42px;
+}
+.sp_hall {
+    display: inline-block;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/hall/sp_hall_default_170116.png) no-repeat left top;
+    background-size: 243px auto;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .content {
+    padding-bottom: 5px;
+}
+
+.wrap_hall .section_keyword_qa .top_list .list_body .content .key_text {
+    display: block;
+    padding-top: 12px;
+    border-top: 1px solid #e5e5e5;
+    font-size: 12px;
+    line-height: 18px;
+    color: #7399d5;
+    letter-spacing: -.5px;
+    white-space: nowrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.ellipsis, .ellis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wrap_hall .section_keyword_qa .article_list>ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* 랭킹 */
+
+.wrap_hall .grid_inner {
+    position: relative;
+    margin-top: 6px;
+    background-color: #fff;
+    border: 1px solid #dde0e3;
+}
+
+.wrap_hall .section_ranking .tab_area_sub {
+    margin-left: -10px;
+}
+.wrap_hall .tab_area_sub {
+    overflow: hidden;
+    width: 120px;
+}
+.wrap_hall ul, .wrap_hall ol, .wrap_hall li {
+    list-style: none;
+}
+
+.wrap_hall .tab_area_sub li {
+    float: left;
+    width: 60px;
+    text-align: center;
+}
+
+.wrap_hall .tab_area_sub li.on a, .wrap_hall .tab_area_sub li.on a .tit {
+    font-weight: 600;
+    color: #000;
+}
+.wrap_hall .tab_area_sub li a, .wrap_hall .tab_area_sub li a .tit {
+    display: block;
+    color: #7f7f7f;
+    font-size: 14px;
+    line-height: normal;
+}
+
+.wrap_hall .tab_area_sub li.on a, .wrap_hall .tab_area_sub li.on a .tit {
+    font-weight: 600;
+    color: #000;
+}
+
+.wrap_hall .tab_area_sub li a, .wrap_hall .tab_area_sub li a .tit {
+    display: block;
+    color: #7f7f7f;
+    font-size: 14px;
+    line-height: normal;
+}
+.wrap_hall .uio_top .tit {
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    padding: 15px 0 16px;
+    font-weight: 600;
+}
+
+.wrap_hall .section_ranking .article_list>ul {
+    overflow: hidden;
+}
+
+.wrap_hall .section_ranking .article_list .list_divide {
+    position: relative;
+    float: left;
+    width: 380px;
+    padding: 30px 0;
+}
+
+.wrap_hall .section_ranking .article_list .list_item {
+    height: 233px;
+    padding: 0 30px;
+    border-right: 1px solid #ededed;
+    text-align: center;
+}
+
+.wrap_hall .section_ranking .recommend {
+    text-align: center;
+}
+
+.wrap_hall .section_ranking .recommend button {
+    width: 99px;
+    padding: 13px 0;
+    border: 1px solid #e5e5e5;
+    background-color: #f8fafb;
+    cursor: pointer;
+}
+
+.wrap_hall .section_ranking .recommend button .sp_like {
+    margin-top: -1px;
+    margin-right: 2px;
+}
+.sp_hall.sp_like {
+    width: 18px;
+    height: 18px;
+    background-position: 0 -157px;
+}
+.sp_hall {
+    display: inline-block;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/hall/sp_hall_default_170116.png) no-repeat left top;
+    background-size: 243px auto;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+}
+
+.wrap_hall .section_ranking .recommend button .num {
+    font-family: Helvetica,sans-serif;
+    color: #929795;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+}
+
+.wrap_hall .section_ranking .article_list .rank {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    display: block;
+    width: 36px;
+    color: #00c73c;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.wrap_hall .section_adoption .article_list .thmb_profile {
+    overflow: hidden;
+}
+
+.wrap_hall .section_adoption .article_list .thmb {
+    position: relative;
+    height: 101px;
+}
+
+.wrap_hall .section_adoption .article_list .thmb img {
+    width: 97px;
+    height: 97px;
+}
+
+.wrap_hall .section_adoption .article_list .top_item1 .mask {
+    height: 101px;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/hall/bg_adoption_mask_gold_160603.png) no-repeat left top;
+}
+.wrap_hall .section_adoption .article_list .mask {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 115px;
+    height: 100px;
+    margin-left: -57.5px;
+}
+
+.wrap_hall .section_adoption .article_list .list_body {
+    height: 114px;
+}
+.wrap_hall .section_ranking .article_list .list_body {
+    padding: 0 17px;
+}
+
+.wrap_hall .section_ranking .list_body .writer_sec {
+    display: block;
+    margin-top: 18px;
+    width: 100%;
+    padding: 2px 0;
+    text-align: center;
+}
+
+.wrap_hall .section_ranking .list_body .writer {
+    display: inline-block;
+    vertical-align: top;
+}
+.wrap_hall .section_ranking .list_body .writer_sec {
+    display: block;
+    margin-top: 18px;
+    width: 100%;
+    padding: 2px 0;
+    text-align: center;
+}
+
+.wrap_hall .section_ranking .list_body .writer.no_badge .ellipsis {
+    max-width: 220px;
+}
+
+.wrap_hall .section_ranking .list_body .desc {
+    margin-top: 3px;
+    max-height: 16px;
+    font-size: 12px;
+    color: #7399d5;
+    line-height: 16px;
+    display: block;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.wrap_hall .section_ranking .information_section {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.wrap_hall .section_ranking .information_section_item {
+    display: table;
+    margin: 5px auto 0;
+}
+
+.wrap_hall .section_ranking .information_section .category_title {
+    display: table-cell;
+    color: #999;
+    white-space: nowrap;
+    vertical-align: top;
+    font-weight: normal;
+}
+
+.wrap_hall .section_ranking .information_section .category_content {
+    display: table-cell;
+    padding-left: 5px;
+    text-align: left;
+    color: #000;
+    vertical-align: top;
+}
+.wrap_hall .section_ranking .information_section {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.wrap_hall .section_ranking .information_section_item {
+    display: table;
+    margin: 5px auto 0;
+}
+
+.wrap_hall .section_ranking .information_section .category_title.value {
+    color: #00c73c;
+}
+
+.wrap_hall .section_ranking .information_section .type_number {
+    color: #00c73c;
+    font-size: 13px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 600;
+}
+.wrap_hall .section_ranking .information_section .category_content {
+    display: table-cell;
+    padding-left: 5px;
+    text-align: left;
+    color: #000;
+    vertical-align: top;
+}
+
+.wrap_hall .section_ranking .information_section {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.ellipsis, .ellis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.list_body .ellipsis {
+    font-size: 13px;
+    float : inherit;
+}
+
+/* 성지글 */
+
+.wrap_hall .section_shrine {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 156px;
+    margin-top: 30px;
+    background: #6eaef3 url(https://ssl.pstatic.net/static/kin/09renewal/hall/bg_hall_best.png) no-repeat 50% 50%;
+}
+
+.wrap_hall .section_shrine .content {
+    overflow: hidden;
+    padding: 0 77px;
+    border: 1px solid #64a4e8;
+}
+
+.wrap_hall .section_shrine .content .slide {
+    float: left;
+    width: 100%;
+    height: 154px;
+}
+
+.wrap_hall .section_shrine .content .slide a {
+    display: block;
+    height: 110px;
+    padding: 23px 0;
+    text-align: center;
+}
+.wrap_hall a, .wrap_hall a:hover {
+    text-decoration: none;
+}
+
+.wrap_hall .section_shrine .cont .ellipsis {
+    display: block;
+    line-height: normal;
+}
+.ellipsis, .ellis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wrap_hall .section_shrine .cont .desc {
+    margin-top: 8px;
+    font-size: 26px;
+    color: #fff;
+}
+
+.wrap_hall .section_shrine .cont .ellipsis {
+    display: block;
+    line-height: normal;
+}
+
+.wrap_hall .section_shrine .content .slide a {
+    display: block;
+    height: 110px;
+    padding: 23px 0;
+    text-align: center;
+}
+
+.wrap_hall .section_shrine .cont .sub_tit {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 26px;
+    color: #375779;
+    letter-spacing: -1px;
+}
+
+.wrap_hall .section_shrine .cont .desc {
+    margin-top: 8px;
+    font-size: 26px;
+    color: #fff;
+}
+
+.ellipsis, .ellis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wrap_hall .section_shrine .util_wrap {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 28px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.wrap_hall .section_shrine .util_wrap .reply_simple {
+    padding-right: 20px;
+}
+.wrap_hall .section_shrine .util_wrap .reply_simple .sp_hall {
+    vertical-align: middle;
+}
+.wrap_hall .section_shrine .util_wrap .sp_hall {
+    margin-right: 5px;
+}
+.sp_hall.ico_reply {
+    width: 23px;
+    height: 23px;
+    background-position: -137px -132px;
+} 
+.sp_hall {
+    display: inline-block;
+    background: url(https://ssl.pstatic.net/static/kin/09renewal/hall/sp_hall_default_170116.png) no-repeat left top;
+    background-size: 243px auto;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+}
+
+.sp_hall.ico_like {
+    width: 22px;
+    height: 22px;
+    background-position: -107px -132px;
+}
+
+
+.wrap_hall .section_shrine .util_wrap .like_simple .sp_hall {
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-right: 4px;
+}
+
+._legendQna .ellipsis {
+    float : inherit;
+}
+
+.wrap_hall .section_shrine .nav_area .prev {
+    left: 0;
+    width: 56px;
+    height: 56px;
+    background-position: 0 0;
+}
+.wrap_hall .section_shrine .nav_area a {
+    position: absolute;
+    top: 50%;
+    margin-top: -28px;
+}
+
+.wrap_hall .section_shrine .nav_area .next {
+    right: 0;
+    width: 56px;
+    height: 56px;
+    background-position: -66px 0;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/views/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<context:component-scan base-package="kr.co.link.controller" />
+	
+	<bean id="loginCheckInterceptor" class="kr.co.link.interceptor.LoginCheckInterceptor"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/home.do"/>
+			<mvc:exclude-mapping path="/loginform.do"/>
+			<mvc:exclude-mapping path="/login.do"/>
+			<mvc:exclude-mapping path="/blog/main.do"/>
+			<mvc:exclude-mapping path="/blog/detail.do"/>
+			<mvc:exclude-mapping path="/blog/profile.do"/>
+			<mvc:exclude-mapping path="/blog/board.do"/>
+			<mvc:exclude-mapping path="/blog/topicAjax.do"/>
+			<mvc:exclude-mapping path="/blog/paginationAjax.do"/>
+			<mvc:exclude-mapping path="/jisikin/main.do"/>
+			<mvc:exclude-mapping path="/jisikin/qna.do"/>
+			<mvc:exclude-mapping path="/jisikin/questionDetail.do"/>
+			<mvc:exclude-mapping path="/jisikin/rank.do"/>
+			  
+			<mvc:exclude-mapping path="/search.do"/>
+			<mvc:exclude-mapping path="/autoComplete.do"/>
+			
+			<mvc:exclude-mapping path="/tv/home.do"/>
+       		<mvc:exclude-mapping path="/tv/detail.do"/>
+      		<mvc:exclude-mapping path="/tv/rank.do"/>
+      		
+      		<mvc:exclude-mapping path="/registerAgree.do"/>
+      		<mvc:exclude-mapping path="/register.do"/>
+      		
+      		<mvc:exclude-mapping path="/confirmid.do"/>
+      		<mvc:exclude-mapping path="/addUser.do"/>
+      		
+      		<mvc:exclude-mapping path="/series/category.do"/>
+            <mvc:exclude-mapping path="/series/detail.do"/>
+            <mvc:exclude-mapping path="/series/home.do"/>
+            <mvc:exclude-mapping path="/series/noticedetail.do"/>
+            <mvc:exclude-mapping path="/series/noticelist.do"/>
+            <mvc:exclude-mapping path="/series/toprank.do"/>
+			<ref bean="loginCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>

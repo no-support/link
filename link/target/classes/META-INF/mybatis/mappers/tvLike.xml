@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.link.dao.TvLikeDao">
+  	
+  	<insert id="addLike" parameterType="tvLikes">
+  	insert into tv_likes
+  	values(tv_likes_seq.nextval,#{tv.no},sysdate,#{user.id})
+  	
+  	</insert>
+  	
+	<select id="getCountLikeById" parameterType="map" resultType="int">
+	select 
+		count(*)
+	from 
+		tv_likes
+	where 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+
+	</select>
+	
+	<select id="getCountByLike" parameterType="int" resultType="int">
+		select 
+			COUNT(*)
+		FROM 
+			TV_LIKES 
+		where 
+			TV_NO = #{value}
+	</select>
+
+<delete id="deleteLikeById" parameterType="map">
+	DELETE
+	FROM 
+		TV_likes
+	WHERE 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+	
+</delete>
+ </mapper>

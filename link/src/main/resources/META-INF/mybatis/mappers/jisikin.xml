@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.JisikinDao">		<!-- Dao경로설정 -->
+
+	<!-- 페이징 글 수 -->
+	<select id="countJiskinBycategory" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			jisikin j, jisikin_category c
+		where
+            j.category_no = c.category_no
+		<if test="categoryNo != 0">
+	        and c.category_parent_no = #{value}
+		</if>
+	</select>
+	
+	<!-- 페이징처리 글 리스트 -->
+	<select id="pagingJiskinBycategory" parameterType="map" resultType="jisikin">
+		select
+			no, 
+			title, 
+			contents,
+			secretYn, 
+            mentalPoint, 
+			"category.no",
+			"category.name",
+			viewCnt,
+			createDate
+		from (select
+				row_number() over (order by jisikin_create_date desc) rn,
+				jisikin_no no, 
+				jisikin_title title, 
+				jisikin_content contents,
+				jisikin_secret_yn secretYn, 
+				jisikin_mental_point mentalPoint, 
+				jisikin.category_no "category.no",
+				category_name "category.name",
+				jisikin_viewcnt viewCnt,
+				jisikin_create_date createDate
+			from
+				jisikin, jisikin_category
+			where
+				jisikin.category_no = jisikin_category.category_no
+			<if test="categoryNo != 0">
+	        and 
+	        	jisikin_category.category_parent_no = #{categoryNo}
+			</if>)
+        where
+        	rn &gt;= #{beginIndex}
+        and
+        	rn &lt;= #{endIndex}
+	</select>
+
+	<insert id="addJisikin" parameterType="jisikin">
+		insert into Jisikin (jisikin_no, 
+							 jisikin_title, 
+							 jisikin_content,
+							 jisikin_secret_yn, 
+							 jisikin_mental_point, 
+                             user_id,
+							 category_no)
+		values
+		(#{no}, #{title},#{contents},#{secretYn},#{mentalPoint},#{userId},#{category.no})
+	</insert>
+	
+	<select id="getJisikinSeq" resultType="Integer">
+		select	jisikin_seq.nextval
+		from	dual
+	</select>
+	
+	<select id="getJisikinByNo" parameterType="int" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate,
+			user_id userId,
+			jisikin_deadline_yn deadLineYn,
+			jisikin_recommend recommend,
+			jisikin_viewcnt viewCnt,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		and
+			jisikin.jisikin_no = #{value}
+		order by
+			jisikin_create_date desc
+	</select>
+	
+	<select id="getAllJisikin" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate,
+			user_id userId,
+			jisikin_viewcnt viewCnt,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		order by
+			jisikin_create_date desc
+	</select>
+	
+	<select id="countTodayJisikin" resultType="Integer">
+		select 
+			count(*)
+		from 
+			jisikin
+		where 
+		    to_char(jisikin_create_date, 'yy/mm/dd') = (select to_char(sysdate, 'yy/mm/dd') from dual)
+	</select>
+	
+	<select id="countTodayAnswer" resultType="Integer">
+		select 
+			count(*)
+		from 
+			jisikin_answer
+		where 
+		    to_char(answer_create_date, 'yy/mm/dd') = (select to_char(sysdate, 'yy/mm/dd') from dual)
+	</select>
+	
+	<select id="countAnswer" resultType="Integer">
+		select 
+			count(*)
+		from 
+			jisikin_answer
+	</select>
+	
+	<!-- 카테고리별 키워드 검색 -->
+	<select id="searchJisikinsByCategory" parameterType="map" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_viewcnt viewCnt,
+			jisikin_create_date createDate
+		from
+			jisikin, jisikin_category
+		where
+            jisikin.category_no = jisikin_category.category_no
+        and
+			jisikin_category.category_parent_no = #{no}
+		and
+			(jisikin.jisikin_title like '%' || #{keyword} || '%' or jisikin.jisikin_content like '%' || #{keyword} || '%')
+			
+	</select>
+	
+	
+	<!-- 추천 -->
+	<update id="updateJisikinByNo" parameterType="jisikin">
+		update 
+			jisikin
+		set 
+		    jisikin_recommend = #{recommend},
+		    jisikin_viewcnt = #{viewCnt},
+		    jisikin_deadline_yn = #{deadLineYn}
+		where
+		    jisikin_no = #{no}
+	</update>
+	
+	<select id="getJisikinByrecommend" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate,
+			user_id userId,
+			jisikin_viewcnt viewCnt,
+			jisikin_recommend recommend,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		order by
+			jisikin_recommend desc
+		
+	</select>
+	
+	<!-- 나의 질문, 나의 답변 -->
+	<select id="getMyJisikin" parameterType="string" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint,
+			jisikin_deadline_yn deadLineYn,
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate,
+			jisikin_viewcnt viewCnt,
+			user_id userId,
+			jisikin_recommend recommend,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		and
+			jisikin.user_id = #{value}
+		order by
+			jisikin_create_date desc
+	</select>
+	
+	
+	
+	<select id="getMyAnswer" parameterType="string" resultType="jisikinAnswer">
+		select
+			answer_no no,
+			answer_create_date createDate,
+			answer_selected_yn selectedYn,
+			answer_secret_yn secretYn,
+			jisikin_no jisikinNo,
+			user_id userId,
+			answer_contents contents
+		from
+			jisikin_answer
+		where
+			jisikin_answer.user_id = #{value}
+		order by
+			answer_create_date desc	
+	</select>
+	
+	
+	
+	
+	
+	
+	<!--     프로필에 들어갈 수치들 -->
+	
+	<!-- 전체 답변 -->
+	<select id="countAllAnswerById" parameterType="string" resultType="int">
+		select
+		    count(*)
+		from
+		    jisikin_answer
+		where
+    		user_id = #{value}
+	</select>
+	
+	<!-- 채택답변 -->
+	<select id="countSelectById" parameterType="string" resultType="int">
+		select
+		    count(*)
+		from
+		    jisikin_answer
+		where
+		    user_id = #{value}
+		and
+		    answer_selected_yn = 'Y'
+	</select>
+	
+	<!-- 내공 순위 -->
+	<select id="rankMentalPointById" parameterType="string" resultType="int">
+		select 
+			rn
+        from (select  
+                user_id, row_number() over (order by user_mental_point desc) rn
+              from
+		        users
+		      order by
+		        user_mental_point desc)
+        where 
+        	user_id = #{value}
+	</select>
+	
+	<!--  전체질문 -->
+	<select id="countAllJisikinById" parameterType="string" resultType="int">
+		select
+		    count(*)
+		from
+		    jisikin
+		where
+		    user_id = #{value}
+	</select>
+	
+	<!-- 답변받은 질문 -->
+	<select id="countJisikinSelectById" parameterType="string" resultType="int">
+		select 
+		    count(distinct j.jisikin_no)
+		from
+		    jisikin_answer a, jisikin j
+		where
+		    j.jisikin_no = a.jisikin_no
+		and
+		    j.user_id = #{value}
+	</select>
+	
+	<!-- 전체 마감률 -->
+	<select id="deadLineById" parameterType="string" resultType="double">
+		select
+		    NVL((select
+		        count(*)
+		    from
+		        jisikin
+		    where
+		        jisikin_deadline_yn = 'Y'
+		    and
+		        user_id = #{value} ) /
+		    
+		    decode((select
+		        count(*)
+		    from
+		        jisikin
+		    where
+		        user_id = #{value})
+		        ,0,NULL,
+		        		(select
+		        			count(*)
+		    			from
+		        			jisikin
+		    			where
+		        			user_id = #{value})
+		        ), 0) * 100
+		from
+		    dual
+	</select>
+	
+	<!-- 받은 추천수 -->
+	<select id="recommendById" parameterType="string" resultType="int">
+		select
+		    nvl(sum(jisikin_recommend),0)
+		from
+		    jisikin
+		where
+		    user_id = #{value}
+	</select>
+	
+	<!-- 도움받은 사람 수 -->
+	<select id="countHelpUserById" parameterType="string" resultType="int">
+		select 
+		    count(a.answer_no)
+		from
+		    jisikin_answer a, jisikin j
+		where
+		    j.jisikin_no = a.jisikin_no
+		and
+		    j.user_id = #{value}
+	</select>
+	
+	<!--  최초답변일 -->
+	<select id="firstAnswerById" parameterType="string" resultType="string">
+		select
+		    answer_create_date
+		from
+		    jisikin_answer
+		where
+		    user_id = #{value}
+		and
+		    rownum = 1
+		order by
+		    answer_create_date
+	</select>
+	
+	
+	
+	
+	<!-- 메인 -->
+	<!-- 오늘의 질문 -->
+	<select id="todayJisikin3" resultType="jisikin">
+		select 
+		    no,
+		    title,
+		    contents,
+		    secretYn,
+		    mentalPoint,
+		    "category.no",
+		    createDate,
+		    userId,
+		    recommend,
+		    viewCnt
+		    countAnswer
+		from( 
+		    select 
+		        jisikin_no no, 
+					jisikin_title title, 
+					jisikin_content contents,
+					jisikin_secret_yn secretYn, 
+					jisikin_mental_point mentalPoint, 
+					jisikin.category_no "category.no",
+					category_name "category.name",
+					jisikin_create_date createDate,
+					jisikin_viewcnt viewCnt,
+					user_id userId,
+					jisikin_recommend recommend,
+					(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		    from 
+		        jisikin, jisikin_category
+		    where
+		        jisikin.category_no = jisikin_category.category_no
+		    and
+		        to_char(jisikin_create_date, 'YYYY/MM/DD') = to_char(sysdate, 'YYYY/MM/DD')
+		    order by 
+		        DBMS_RANDOM.RANDOM ) 
+		where 
+		    rownum &lt; 4
+	</select>
+	
+	
+	<!-- 오늘 남자 답변률 -->
+	<select id="getMaleToday" resultType="int">
+		select
+		    nvl(count(*),0)
+		from
+		    jisikin_answer a, users u
+		where
+		    a.user_id = u.user_id
+		and
+		    u.user_gender = '남자'
+		and
+		    to_char(answer_create_date, 'YYYY/MM/DD') = to_char(sysdate, 'YYYY/MM/DD')
+	</select>
+	
+	<!-- 오늘 여자 답변률 -->
+	<select id="getFemaleToday" resultType="int">
+		select
+		    nvl(count(*),0)
+		from
+		    jisikin_answer a, users u
+		where
+		    a.user_id = u.user_id
+		and
+		    u.user_gender = '여자'
+		and
+		    to_char(answer_create_date, 'YYYY/MM/DD') = to_char(sysdate, 'YYYY/MM/DD')
+	</select>
+	
+	<!-- 조회순 질문리스트 -->
+	<select id="getJisikinByView" resultType="jisikin">
+		select 
+		    jisikin_no no, 
+		        jisikin_title title, 
+		        jisikin_content contents,
+		        jisikin_secret_yn secretYn, 
+		        jisikin_mental_point mentalPoint, 
+		        jisikin.category_no "category.no",
+		        category_name "category.name",
+		        jisikin_create_date createDate,
+		        jisikin_viewcnt viewCnt,
+		        user_id userId,
+		        jisikin_recommend recommend,
+		        (select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from 
+		    jisikin, jisikin_category
+		where
+		    jisikin.category_no = jisikin_category.category_no
+		order by
+		    viewCnt desc
+	</select>
+	
+	<!-- 카테고리별 정렬 -->
+	<select id="getSortByCategory" parameterType="map" resultType="jisikin">
+		select
+		    jisikin_no no, 
+		    jisikin_title title, 
+		    jisikin_content contents,
+		    jisikin_secret_yn secretYn, 
+		    jisikin_mental_point mentalPoint,
+		    jisikin_deadline_yn deadLineYn,
+		    jisikin.category_no "category.no",
+		    category_name "category.name",
+		    jisikin_create_date createDate,
+		    jisikin_viewcnt viewCnt,
+		    user_id userId,
+		    jisikin_recommend recommend,
+		    (select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+		    jisikin, jisikin_category
+		where    
+		    jisikin.category_no = jisikin_category.category_no
+		<if test="categoryNo != null">
+			and jisikin_category.category_parent_no = #{categoryNo}
+		</if>
+		order by
+			<if test="sort == 1">
+			    countAnswer
+			</if>
+			<if test="sort == 2">
+			    jisikin.jisikin_create_date desc
+			</if>
+			<if test="sort == 3">
+			    jisikin.jisikin_mental_point desc
+			</if>
+	</select>
+</mapper>

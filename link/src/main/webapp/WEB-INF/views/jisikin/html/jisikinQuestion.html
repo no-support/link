@@ -1,0 +1,357 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>Link 지식인 > 질문답변</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/blog/blog.css">
+	<link rel="stylesheet" href="../../../resources/css//jisikin/jisikinmain.css">
+	<link rel="stylesheet" href="../../../resources/css//jisikin/jisikinQna.css">
+	<link rel="stylesheet" href="../../../resources/css//jisikin/jisikinQuestion.css">
+</head>
+<body>
+    <nav class="navbar main-nav" style="margin-bottom: 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="/src/main/webapp/WEB-INF/views/blog/blogmain.html">
+                        <span class="blog-main-javer">Link</span> <span class="blog-main-blog">지식인</span>
+                    </a>
+                </div>
+                <div class="col-sm-5 blog-searchbar">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
+                        </div>
+                        <button type="submit" class="btn btn-green"><span class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                </div>
+
+                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
+                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="blog-profile-img" src="../../../resources/images/blog.png" alt="">
+                                    <span class="blog-navbar-id">빗취</span>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">내 블로그</a></li>
+                                    <li><a href="#">밴드</a></li>
+                                    <li><a href="#">가계부 </a></li>
+                                    <li><a href="#">지식인</a></li>
+                                    <li><a href="#">시리즈</a></li>
+                                    <li><a href="#">TV</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="bell text-center"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
+                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div class="container">
+   <div class="row" style="margin-top: 0px;">
+       <nav class="navbar navbar-default main-nav jisikin-nav">
+          <div class="container-fluid">
+           
+            <div class="navbar-header">
+              <a class="navbar-brand menu-home" href="#">홈</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="dropdown menu-tab">
+                  <a href="#" class="qna-toggle dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Q&A <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">교육,학문</a></li>
+                    <li><a href="#">컴퓨터통신</a></li>
+                    <li><a href="#">게임</a></li>
+                    <li><a href="#">엔터테인먼트,예술</a></li>
+                    <li><a href="#">생활</a></li>
+                    <li><a href="#">건강</a></li>
+                    <li><a href="#">사회,정치</a></li>
+                    <li><a href="#">경제</a></li>
+                    <li><a href="#">여행</a></li>
+                    <li><a href="#">스포츠,레저</a></li>
+                    <li><a href="#">쇼핑</a></li>
+                    <li><a href="#">쥬니버Q&A</a></li>
+                    <li><a href="#">지역&플레이스</a></li>
+                    <li><a href="#">고민Q&A</a></li>
+                    <li><a href="#">오픈사전</a></li>
+                  </ul>
+                </li>
+                <li class="menu-tab">
+                    <a href="#">답변하기 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="menu-tab"><a href="#">명예의 전당</a></li>
+              </ul>
+             
+              <ul class="nav navbar-nav navbar-right">
+                <li class="menu-tab"><a href="#">프로필</a></li>
+                <li class="menu-tab btn-question"><a href="#"><span class="glyphicon glyphicon-pencil"></span>질문하기</a>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+   </div>
+   
+   
+   <!-- 메인 컨텐츠 시작 -->
+    
+    </div>
+<!-- 질문 섹션-->
+  <div class="container-fluid">
+   <div class="row">
+       <div class="question-content">
+            <div class="question-content__inner _contentWrap">
+
+                <div class="c-heading _questionContentsArea c-heading--default-old" data-tag="%EA%B3%B5%EB%B6%80,%EB%AC%B8%EC%A0%9C%EC%A7%91%EC%B6%94%EC%B2%9C,%EC%98%88%EB%B9%84%EA%B3%A01,%EC%98%81%EC%96%B4">
+
+                    <div class="c-heading__icon">
+                                <img src="../../../resources/images/jisikin-Q.png" alt=""><span class="blind">질문</span>
+                    </div>
+                    <div class="c-heading__title">
+                        <div class="c-heading__title-inner">
+                                <div class="c-heading__icons-front">
+                                    <span class="grade-point grade-point__large"><span class="blind">내공</span>50</span>
+                                </div>
+
+                            <div class="title">	
+                                        예비고1 문제집 추천 좀요
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-heading__content">
+                        현 중3입니다. 아직 고등학교 내용은 한 번도 본 적 없고 이번이 처음입니다. 예비고1 문제집, 특히 영어 문제집을 좀 추천해주셨으면 좋겠습니다. 타과목들도 괜찮다 싶은 문제집 소개해 주면 감사하겠는데 수학은 필요 없어요.<br> 제가 초6 때부터 영어 학원을 안 다니고 혼자서 공부를 하고 있는데 중학교 영어는 따라가는데 큰 문제가 없었지만 고등학교는 좀 불안해서요. 고등학교 문제집 말고도 중학교 3년 간 배운 영문법을 총정리하는 문제집있다면 추천해주셨음 합니다.
+                    </div>
+                </div>
+
+                <div class="tag-list tag-list--end-title" role="region" aria-label="관련태그 목록" data-select="type-a">
+                    <a href="#" class="tag-list__item tag-list__item--category" target="_blank"><span class="blind">태그 디렉터리</span>Ξ 고등학교교육</a>
+
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>공부</a>
+
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>문제집추천</a>
+
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>예비고1</a>
+
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>영어</a>
+
+                </div>
+
+                <div class="c-userinfo">
+                    <div class="c-userinfo__left">
+                        <div class="c-userinfo__profile _profileArea">
+                            <div class="profile-default">
+                                <div class="profile-default--inner">
+                                    <span class="profile-default__thumbnail" style="background-image: url(https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m_gray/public.png);"><span class="blind">내 프로필 이미지</span></span>
+                                </div>
+
+                                <div class="c-callout callout--profile-tooltip _profileTooltip">
+                                    <ul class="c-callout__list">
+                                        <li class="c-callout__item"><strong class="c-callout__item-title">질문수</strong><span class="c-callout__item-count">11</span></li>
+                                        <li class="c-callout__item"><strong class="c-callout__item-title">채택률</strong><span class="c-callout__item-count">100.0%</span></li>
+                                        <li class="c-callout__item"><strong class="c-callout__item-title">마감률</strong><span class="c-callout__item-count">100.0%</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                                    <span class="c-userinfo__author"><span class="blind">닉네임</span>비공개</span>
+                        </div>
+                        <span class="c-userinfo__date"><span class="blind">작성일</span>26분 전</span>
+                    </div>
+
+                    <div class="c-userinfo__right" role="listbox">
+                        <div role="presentation" class="c-userinfo__button-setting">
+
+                            <a href="#" id="questionMenuBtn" class="button_compose _questionMenuLayerButton is_active" onclick="naver.kin.pc.common.nClicks('end*q.more', '', '', event);" role="option" aria-selected="true" aria-haspopup="true" aria-expanded="true"><i class="icon icon_compose_setting _questionMenuLayerButton" aria-hidden="true"></i><span class="blind">더보기</span></a>
+                            <div class="c-userinfo__list-setting _questionMenuLayer _popupLayer" role="listbox" aria-hidden="true">
+                                <a href="#" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton"><span class="glyphicon glyphicon-bell" style="color: red;"></span>신고</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</div>
+
+   </div>
+</div>
+<div class="container answer-section">
+   <div class="row" style="margin-top: 10px;">
+       <div class="col-sm-12 well" style="height: 60px; padding: 10px 10px 0px 10px">
+            <div class="c-heading-answer__body">
+                <div class="c-heading-answer__title">		
+                    <div class="c-userinfo">
+                                <span class="c-userinfo__item">답변하시면 내공 10점을 답변이 채택되면 내공 35점을 드립니다.</span>
+                    </div>
+                </div>
+                <div class="c-heading-answer__button">
+                    <a href="#" id="answerWriteButton" role="button" aria-expanded="false" aria-controls="" class="c-button-default c-button-default--blue"><span class="c-button-default__title">답변하기</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+   <div class="row">
+       <div class="answer-content_inner text-center">
+           <div class="c-classify__title-part">
+    		  <h3 class="c-classify__title"><i class="icon icon_common_a" aria-hidden="true"></i><span class="blind">답변</span><em class="_answerCount num">1</em>개</h3>
+	       </div>
+	       <div class="c-classify__sorting-part">
+	           <div class="c-sorting">
+	               <select class="selectBox01">
+	                   <option value="" name="">채택순</option>
+	                   <option value="" name="">최신순</option>
+	                   <option value="" name="">추천순</option>
+	               </select>
+	           </div>
+	       </div>
+       </div>
+   </div>
+   <div class="row well">
+       <div class="answer-content__item">
+           <div class="answer-content-header">
+               <div class="profile-default">
+					<a href="#" target="_blank" class="profile-default--inner">
+						<span class="profile-default__thumbnail" style="background-image: url('https://kin-phinf.pstatic.net/20190323_276/1553332370886E2suf_JPEG/KakaoTalk_20190213_094319724.jpg');"><span class="blind">박수진님 프로필 이미지</span></span>
+					</a>
+				</div>
+                <div class="profile-info">
+                    <h3 class="answer-author">박수진 님 답변</h3>
+                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
+                </div>
+           </div>
+       </div>
+       <div class="answer-contents">
+           <p class="main-contents">유니티 2D 게임 만들기에 대해서 궁금하신 질문자님 반갑습니다.
+            일단 게임프로그래머 직군으로 따지면 거의 대부분 두 가지중에서 생각을 많이 하시는데요.<br/>
+            <br/>
+            클라이언트와 서버프로그래머 중에서 게임쪽이라고 하면 클라이언트 과정을 진행해야
+            한다고 생각하시면 되요.<br/>
+            또 C로부터 진행되는 클라이언트 과정과 C#에서 진행되는 유니티 과정을 어느정도 이해해야해요.<br/>
+            프로그래밍 언어로는 C언어를 중심으로 하여 C++, C#, API, JAVA 등 여러 객체지향 언어가 있는데
+            말씀하신 유니티게임엔진은 C#을 사용해요.<br/><br/>
+            고등학생이 무슨 게임개발이냐 라는 생각들도 많이들 하시지만 요즘은 중학생들도 빠르게 준비중이고
+            실제 게임개발을 위해서 영재교육 및 전문 교육기관들이 늘어나고 있는 추세에요.<br/><br/>
+            게임프로그래밍은 솔직히 쉽지만은 않아요.<br/> 일단 영타로 작업이 실시되고 더불어서 수학지식도
+            어느정돈 갖추어져야하는 부분이 필요하거든요.<br/>
+            기초와 기본기가 없다면 학원을 다니시는 걸 추천드리는데요.<br/>
+            C#공부를 하면 C#스크립트를 한 달 동안 배우게 되요. 근데 이게 외국어라고 생각하시면 되는데
+            솔직히 영어 공부하는것보단 조금 재미있다고 생각하면 되요.
+            저는 전문가가 아니라 이정도의 지식이 한계네여... 링크 남겨드리니 참고하시고 
+            유니티 2d 게임 만들기 학원은 전국 강남,신촌,대구,부산,대전,인천,광주,수원 등에 위치해있으니 참고하세요.<br/><br/>
+            좋은 정보 얻으셨으면 좋겠네요. 행복한 하루되세요^^<br/><br/><br/>
+            http://sbsgame-school.net/renewal2016/customer/online.asp?subM=0701</p>
+            
+            <div class="answer-content-date">
+                <p>12분 전</p>
+            </div>
+            <div class="row">
+                <div class="answer-bottom">
+                    <div class="answer-bottom-left">
+                        <button type="button" id="comment-show">
+                            <i class="icon icon_compose_opinion" aria-hidden="true"><span class="glyphicon glyphicon-comment"></span><span class="answer-comment">댓글</span></i> 
+                        </button>
+                    </div>
+                    <div class="answer-bottom-right">
+                        <button type="button">
+                            <span class="glyphicon glyphicon-bell" style="color: red;"></span>신고
+                        </button>
+                    </div>
+            </div>
+            <div class="row comment-area comment-area-none" style="padding-top: 30px;">
+                    <!-- 댓글창 -->
+                <div class="c-opinion _commentListArea" data-answer-no="1" data-thanks-message="" style="" id="p156395222136665351400">
+	<h2 class="blind">댓글영역</h2>
+	<div class="c-opinion__write">
+		
+		<fieldset>
+			<legend>댓글 입력</legend>
+			<div class="c-opinion__write-form">
+				
+				<textarea class="c-opinion__write-textarea placeholder" maxlength="1000" title="댓글 입력">개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.</textarea>
+			</div>
+			<div class="c-opinion__write-upload">
+				<div class="c-opinion__write-count">
+					<span class="blind">현재 입력한 글자수</span>
+					<span class="c-opinion__write-count__num _currentCharCount">0</span>
+					/
+					<span class="blind">전체 입력 가능한 글자수 </span>
+					<span class="c-opinion__write-count__total">1000</span>
+				</div>
+				<button type="submit" class="button_register _registerCommentBtn">등록</button>
+			</div>
+		</fieldset>
+		
+	</div>
+	<!-- 댓글 리스트 -->
+	<div class="c-opinion__list _commentList">
+        <div class="c-opinion__item">
+            <p class="c-opinion__list-nick">
+                <strong><a href="#">allm****</a></strong>
+            </p>
+            <div class="c-opinion__list-text">
+                <p>잘보고갑니다</p>
+            </div>
+            <p class="c-opinion__list-date">2019.07.24. 16:38:30</p>
+            <div class="button_more">
+
+                <a href="#" class="_deleteBtn" data-comment-no="-1" data-page="1"><img height="9" width="9" alt="삭제" src="https://ssl.pstatic.net/static/kin/09renewal/btn_delete_list2.gif" class="del"></a>
+            </div>
+        </div>
+
+    </div>
+	<!-- -->
+	<div class="paginator paginator--number _pagingArea" style="display: none;"></div>
+</div>
+               <!-- -->
+            </div>
+            </div>
+       </div>
+   </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+         
+        $('.dropdown,.dropdown-menu').hover(function(){
+
+          if($(window).width()>=768){
+            $(this).addClass('open').trigger('shown.bs.dropdown', relatedTarget)
+            return false;
+          }
+          
+        },function(){
+          if($(window).width()>=768){
+            $(this).removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+            return false;
+          }
+        })
+          
+      })
+
+    $(".c-userinfo__left").hover(function(){
+        $(".callout--profile-tooltip").css("display", "table");
+    }, function(){
+        $(".callout--profile-tooltip").css("display", "none");
+    });
+    
+    $("#comment-show").click(function(){
+        $(".comment-area").toggleClass("comment-area-none");
+    })
+    </script>
+</body>
+</html>

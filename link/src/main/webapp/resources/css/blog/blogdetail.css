@@ -1,0 +1,225 @@
+body {
+    background-color: lightgray;
+    color:#666666;
+}
+.blog_detail_con{
+    background-color: white;
+    padding-bottom: 50px;
+}
+.blog_neighbor_apply_div1{
+	margin-bottom: 20px;	
+}
+.blog-btn-apply1,
+.blog-btn-apply1:hover,
+.blog-btn-apply1:focus,
+.blog-btn-apply1:active{
+	background-color:#649dfa !important;
+	color:white !important;
+}
+.blog-btn-apply2,
+.blog-btn-apply2:hover,
+.blog-btn-apply2:focus,
+.blog-btn-apply2:active{
+	color:black !important;
+	background-color:white !important;
+}
+
+.blog_add_neighbor_row_1{
+	font-size: 17px;
+}
+.blog_request_div1, .blog_request_div2{
+	border:1px solid lightgray;
+	padding:5px 10px;
+	cursor: pointer;
+}
+.blog_neighbor_selected1{
+font-weight:bold;
+	background-color:#649dfa;
+	color:white;
+}
+.blog_detail_title{
+    font-size: 17px;
+    font-weight: bold;
+}
+.blog_detail_left_col_img{
+    width:100%;
+    max-height:243.75px;
+}
+.blog_detail_left_col_img_col{
+	padding-top : 15px;
+	padding-bottom: 15px;
+	border-bottom : 1px solid #ccc;
+}
+.blog-detail-subtitle2{
+    color:gray;
+}
+.blog_detail_con{
+    padding-top: 30px;
+}
+.blog-detail-left-col-user{
+    margin : 10px 0px;
+}
+.blog_detail_header{
+    margin-left: 24.375px;
+    margin-bottom: 20px;
+}
+.blog-detail-profile{
+    font-size: 12px;
+    color:#649dfa;
+}
+.blog-detail-function1{
+	font-size: 11px;
+	color: #eb9898;
+}
+.blog-detail-function2{
+	font-size: 12px;
+	color: #576d82;
+}
+
+.blog_detail_leftcol_contents{
+    margin:5px 0px;
+}
+.blog_detail_leftcol_contents2{
+    margin:5px 0px 20px 0px;
+}
+.blog_detail_leftcol_contents2 a:hover{
+    color:#666666;
+}
+.blog_detail_neighborplus{
+    padding:7px 5px;
+    border: 1px solid #c6cacf;
+    font-size: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.blog_detail_plus{
+    color:#649dfa;
+}
+.blog_detail_plus2{
+    font-weight: bold;    
+    color:#404142;
+}
+.glyphicon-list-alt,
+.glyphicon-option-horizontal{
+    font-size: 11px;
+}
+.blog-detail-showall{
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.blog-detail-contents{
+    font-size: 13px;
+}
+.blog-detail-showlist{
+    margin-bottom: 10px;
+}
+.blog-detail-showlist .col-sm-12{
+	margin : 5px 0px 0px 0px;
+}
+#blog_right_open{
+	cursor: pointer;
+}
+.blog_detail_right_row{
+    font-size: 14px;
+    border: 1px solid lightgray;
+    padding-top: 20px;
+    padding-bottom : 20px;
+}
+
+.blog_detail_right_row1{
+    font-size: 14px;
+    color:#383b3b;
+    border: 1px solid lightgray;
+    margin-top:15px;
+    padding-top: 20px;
+    padding-bottom : 120px;
+    margin-bottom:15px;
+}
+.blog_detail_right_col_1{
+    margin-top: 15px;
+    color: dimgray;
+}
+.blog_detail_right_row_1{
+    color:#383b3b;
+}
+
+.blog_detail_board_create{
+    color:gray;
+}
+.blog_detail_hr_1{
+    margin-top: 5px;
+    margin-bottom: 7px;
+    padding:0px 30px;
+    border-color: gray;
+}
+.blog_detail_hr_2{
+    margin:10px 0px;
+}
+.blog_detail-hr-div{
+}
+.blog_detail_right_row_1 .col-sm-9 span:hover{
+    cursor: pointer;
+    border-bottom: 1px solid #383b3b;
+}
+.pagination li a{
+    color:#383b3b;
+}
+.pagination li a:hover,
+.pagination li a:focus
+{
+    color:#383b3b;
+    background-color: white;
+    border:1px solid black;
+}
+.blog_detail_board_title_row{
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.blog_detail_board_title{
+    font-weight: bold;
+}
+.blog_detail_board_date{
+    margin-right: 10px;
+}
+.blog_detail_tag{
+    font-size: 13px;
+}
+.blog_detail_comments:hover{
+    border-bottom: 1px solid #383b3b;
+}
+.blog_detail_full a:hover,
+.blog_detail_full span:hover{
+    color:#383b3b;
+}
+.blog_detail_right_col4{
+    margin-bottom: 20px;
+}
+.blog_detail_main_board_contents img{
+    width:70%;
+    height:350px;
+}
+.blog_write_title{
+	
+}
+.blog_usernickNameGlyphycon{
+	font-size: 13px;
+	color:#ccc;
+	
+}
+.blog_usernickName{
+	color:#649dfa;
+	font-weight: bold;
+	font-size:15px;
+}
+.blog_nickNameBlog{
+	font-weight: bold;
+	font-size:15px;
+}
+.blog_detail_right_row1_1{
+	box-shadow: 3px 3px 15px 2px #dedede;
+	padding-bottom: 50px;
+}
+table th {
+	background-color: #f5f5f5;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesOrderDao">		<!-- Dao경로설정 -->
+	
+	<select id="getOrdersById" parameterType="string" resultType="hashmap">
+		select 
+			o.order_create_date "createDate", 
+			v.vod_no "no",
+			v.vod_title "vtitle", 
+			v.vod_img "img", 
+			e.episode_no "eno",
+			e.episode_price "price",
+			e.episode_title "etitle" 
+		from series_orders o, series_episodes e, series_vods v 
+		where v.vod_no = e.vod_no
+		and e.episode_no = o.episode_no 
+		and o.user_id = #{value}
+	</select>
+	
+	<insert id="addOrder" parameterType="hashmap">
+		insert into series_orders (
+			ORDER_NO,
+			EPISODE_NO,
+			USER_ID,
+			ORDER_CREATE_DATE
+			)
+		values (
+			series_order_seq.nextval,
+			#{eno},
+			#{id},
+			sysdate
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogDao">		<!-- Dao경로설정 -->
+<select id="getBlogByUserId" parameterType="string" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
+	from
+		blog
+	where
+		user_id = #{value}
+</select>
+<select id="getBlogByBlogNo" parameterType="int" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
+	from
+		blog
+	where
+		blog_no = #{value}
+</select>
+
+<select id="get3BlogByVisits" parameterType="map" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
+		
+	from(
+        select
+            row_number() over(Order by blog_visits desc) row_no,
+            BLOG_NO,
+            BLOG_TITLE,
+            BLOG_MAIN_IMG,
+            BLOG_THEME,
+            BLOG_VISITS,
+            BLOG_DESCRIPTION,
+            BLOG_CREATE_DATE,
+            USER_ID,
+			BLOG_BACKGROUND_COLOR,
+			BLOG_FONT_COLOR,
+			blog_opacity,
+			BLOG_ATAG_COLOR,
+			BLOG_HR_COLOR,
+			BLOG_BODY_COLOR,
+			BLOG_FIRSTCOL ,
+			BLOG_SECONDCOL ,
+			BLOG_THIRDCOL ,
+			BLOG_LAYOUT,
+			BLOG_PAGENUM_COLOR , 
+			BLOG_PAGENUM_BACKGROUNDCOLOR ,
+			BLOG_TOPIC,
+			BLOG_PAGENUMBORDERCOLOR
+        from
+            blog
+    )
+    where row_no &lt;=#{end}
+    and
+    	row_no >= #{begin}
+</select>
+<update id="updateBlogByBlogNo" parameterType="blog">
+	update 
+		blog
+	set
+		BLOG_TITLE = #{title},
+		BLOG_MAIN_IMG = #{mainImg}, 
+		BLOG_THEME = #{theme},
+		BLOG_DESCRIPTION = #{description},
+		BLOG_VISITS = #{visits},
+		BLOG_BACKGROUND_COLOR = #{backgroundColor},
+		BLOG_FONT_COLOR = #{fontColor},
+		BLOG_OPACITY =  #{opacity},
+		BLOG_ATAG_COLOR = #{atagColor},
+		BLOG_HR_COLOR = #{hrColor},
+		BLOG_BODY_COLOR = #{bodyColor},
+		BLOG_FIRSTCOL = #{firstCol},
+		BLOG_SECONDCOL = #{secondCol},
+		BLOG_THIRDCOL = #{thirdCol},
+		BLOG_LAYOUT = #{layout},
+		BLOG_PAGENUM_COLOR = #{pageNumColor}, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR = #{pageNumBackgroundColor},
+		BLOG_TOPIC = #{topic},
+		BLOG_PAGENUMBORDERCOLOR = #{pageNumBorderColor}
+	where
+		BLOG_NO = #{no}
+</update>
+<insert id="addNewBlog" parameterType="blog">
+	insert into blog
+	values(
+		blog_seq.nextval,#{title},#{mainImg},#{theme},#{description},sysdate,#{userId},0,#{backgroundColor},#{fontColor},
+		#{opacity},#{atagColor},#{hrColor},#{bodyColor},#{firstCol},#{secondCol},#{thirdCol},#{layout},#{pageNumColor},
+		#{pageNumBackgroundColor},#{topic}, #{pageNumBorderColor}
+	)
+</insert>
+<select id="getAllblogs" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
+	from
+		blog
+</select>
+<select id="getAllBlogsByType" parameterType="map" resultType="map">
+	select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg, topic, createDate
+	from
+   		(
+   		select ROW_number() over(order by d.board_create_date desc) row_no,
+           c.user_id id,
+           c.user_nickname nickName,
+           d.board_title title,
+           e.category_no categoryNo,
+           d.board_no boardNo,
+           d.board_contents contents,
+           a.BLOG_NO no,
+           d.board_create_date createDate,
+           d.board_main_Img boardMainImg,
+           a.blog_main_Img blogMainImg,
+           a.blog_topic topic
+        from
+            blog a, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        <if test="userId != null">
+	        and
+	            c.user_id != #{userId}
+        </if>
+        <if test="blogType != 'all' ">
+	        and
+	        	a.blog_topic = #{blogType}
+        </if>
+        )
+    where
+    	row_no >= #{begin}
+    and
+        row_no &lt;= #{end}
+</select>
+<select id="getBlogsCountByType" parameterType="map" resultType="int">
+	select count(*)
+	from
+   		(
+   		select ROW_number() over(order by d.board_create_date desc) row_no,
+           c.user_id id,
+           c.user_nickname nickName,
+           d.board_title title,
+           e.category_no categoryNo,
+           d.board_no boardNo,
+           d.board_contents contents,
+           a.BLOG_NO no,
+           d.board_main_Img boardMainImg,
+           a.blog_main_Img blogMainImg
+        from
+            blog a, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        <if test="userId != null">
+	        and
+	            c.user_id != #{userId}
+        </if>
+        <if test="blogType != 'all'">
+	        and
+	        	a.blog_topic = #{blogType}
+        </if>
+        )
+   
+</select>
+</mapper>

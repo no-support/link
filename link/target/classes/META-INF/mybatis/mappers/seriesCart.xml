@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesCartDao">		<!-- Dao경로설정 -->
+	
+	<select id="getCartsById" parameterType="string" resultType="hashmap">	<!-- 장바구니 -->
+		select
+			v.vod_no "vno",
+			v.vod_img "img", 
+			v.vod_title "vtitle", 
+			e.episode_no "eno",
+			e.episode_title "etitle", 
+			e.episode_price "price"
+		from series_carts c, series_episodes e, series_vods v 
+		where user_id = #{value} 
+		and c.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no
+		
+		<!-- select cart_no "no",	episode_no "episode.no" ,	user_id "user.id",	cart_create_date "createDate" 
+		from series_carts 
+		where user_id = #{value} -->
+	</select>
+	
+	<insert id="addCart" parameterType="seriesCart"> <!-- 장바구니 추가 -->
+		insert into series_carts (cart_no,	episode_no,	user_id,	cart_create_date)
+		values(SERIES_CART_SEQ.nextval,	#{episode.no},	#{user.id},	sysdate)
+	</insert>
+	
+	<delete id="deleteCartByEpisodeNo" parameterType="int">	<!-- 에피소드 번호로 장바구니 삭제 -->
+		delete from series_carts where episode_no = #{value}
+	</delete>
+	
+	<delete id="deleteCartById" parameterType="string">	<!-- id의 장바구니 전부 삭제 -->
+		delete from series_carts where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteCartByUserEpisodeNo" parameterType="hashmap">		<!-- id의 일부 장바구니 삭제 -->
+		delete from series_carts where user_id = #{id} and episode_no = #{eno}
+	</delete>
+</mapper>

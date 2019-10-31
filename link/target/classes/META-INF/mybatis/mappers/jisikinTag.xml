@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.JisikinTagDao">		<!-- Dao경로설정 -->
+
+	<insert id="addTag" parameterType="jisikintag">
+		insert into jisikin_tag
+		(tag_no, tag_name, jisikin_no)
+		values
+		(jisikin_tag_seq.nextval, #{tagName}, #{jisikinNo})
+	</insert>
+	
+	<select id="getTagByJisikin" parameterType="int" resultType="jisikinTag">
+		select
+			tag_no no,
+			tag_name tagName,
+			jisikin_no jisikinNo
+		from
+			jisikin_tag
+		where
+			jisikin_no = #{value}
+	</select>
+	
+	<select id="getPopularTagTop10" resultType="jisikintag">
+		select
+		    rownum, tag_name tagName, cnt countTag
+		from
+			(select
+			    tag_name, count(*) cnt
+			from
+			    jisikin_tag
+			group by tag_name
+			order by count(*) desc)
+		where rownum &lt;= 10
+	</select>
+</mapper>

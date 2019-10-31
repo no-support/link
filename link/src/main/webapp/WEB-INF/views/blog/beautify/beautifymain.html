@@ -1,0 +1,293 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Bootstrap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../../resources/css/blog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .main-nav{
+           margin-bottom: 0px; 
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover,a:focus{
+            text-decoration: none;
+            color:black;
+        }
+
+        .blog-manage-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .blog-manage-bigbox {
+            margin: 15px 0px;
+        }
+
+        .blog-manage-smallbox {
+            margin: 3px 0px;
+        }
+
+        .blog-manage-smallbox span a {
+            color: #313233;
+        }
+
+        .row .blog-manage-bigbox:first-child {
+            margin-top: 30px;
+        }
+
+        .blog_manage_right_row {
+            padding-top: 40px;
+            padding-left:28px;
+            border-left: 1px solid lightgray;
+        }
+
+        .blog_manage_title {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .blog_manage_hr1 {
+            border-bottom: 2px solid gray;
+        }
+        
+        .blog_manage_right_row2 {
+            font-size: 15px;
+        }
+
+        .blog_manage_right_row2 .col-sm-5:nth-child(3){
+            font-size: 14px;
+            color:gray;
+        }
+        .blog_beauty_subject{
+            font-size: 14px;
+            color:black;
+        }
+        .blog_beauty_left_col{
+            padding-right: 0px;
+        }
+        .blog_beauty_mainheader ul li{
+            list-style: none;
+            float: left;
+            margin:0px 15px;
+            padding:7px 0px;
+            
+        }
+        .blog_beauty_mainheader ul li:first-child{
+            margin-left: 0px;
+        }
+        .blog_beauty_selected1{
+            font-weight: 800;
+            color:#52b0f2;
+            border-bottom: 3px solid #52b0f2;
+        }
+        .blog_beauty_ul{
+            padding-left: 0px;
+        }
+        .blog_beauty_hr1{
+            margin-top: 0px;
+            margin-bottom: 0px;
+            border: 0.5px solid lightgray;
+        }
+        .blog_beauty_con{
+            border: 0.5px solid lightgray;
+            border-top: none;
+        }
+        .blog_manage_right_row2 img{
+            width:200px;
+            height:200px;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar main-nav">
+        <div class="container ">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="/link/blog/main.do">
+                        <span class="blog-main-javer">Link</span> <span class="blog-main-blog">블로그</span>
+                    </a>
+                </div>
+                <div class="col-sm-5 blog-searchbar">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
+                        </div>
+                        <button type="submit" class="btn btn-green"><span class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                </div>
+
+                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
+                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="blog-profile-img" src="../../../../resources/images/blog.png" alt="">
+                                    <span class="blog-navbar-id">빗취</span>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/link/home.do">Link 홈</a></li>
+                                <li class="divider"></li>
+                                    <li><a href="/link/blog/detail.do">내 블로그</a></li>
+                                    <li><a href="#">밴드</a></li>
+                                    <li><a href="#">가계부 </a></li>
+                                    <li><a href="#">지식인</a></li>
+                                    <li><a href="#">시리즈</a></li>
+                                    <li><a href="#">TV</a></li>
+                                    
+                                    <li class="divider"></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="bell text-center"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
+                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container blog_beauty_con">
+        <div class="row">
+            <div class="col-sm-12 blog_beauty_mainheader">
+                <ul class="blog_beauty_ul">
+                    <li class="blog_beauty_selected1"><a href="">기본 설정</a></li>
+                    <li><a href="">꾸미기 설정</a></li>
+                    <li><a href="">메뉴,글 관리</a></li>
+                    <li><a href="">내 블로그 통계</a></li>
+                </ul>
+            </div>
+                <hr class="blog_beauty_hr1">
+        </div>
+        <div class="row">
+            <div class="col-sm-2 blog_beauty_left_col">
+                <div class="row">
+                    <div class="col-sm-12 blog-manage-bigbox">
+                        <span class="blog-manage-title"><a href="">기본 정보 관리</a></span>
+                        <div class="col-sm-12 blog-manage-smallbox">
+                            <span><a href="">프로필 정보</a></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 blog-manage-bigbox">
+                        <span class="blog-manage-title"><a href="">열린이웃</a></span>
+                        <div class="col-sm-12 blog-manage-smallbox">
+                            <span><a href="">이웃,그룹 관리</a></span>
+                        </div>
+                        <div class="col-sm-12 blog-manage-smallbox">
+                            <span><a href="">나를 추가한 이웃</a></span>
+                        </div>
+                        <div class="col-sm-12 blog-manage-smallbox">
+                            <span><a href="">서로이웃 맺기</a></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-sm-10 blog_manage_right_row">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="blog_manage_title">블로그 정보</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr class="blog_manage_hr1" />
+                    </div>
+                </div>
+                <div class="row blog_manage_right_row2">
+                    <div class="col-sm-2">
+                        <strong>블로그명</strong>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class=" col-sm-12" type="text" />
+                    </div>
+                    <div class="col-sm-5">
+                        <span>한글,영문,숫자 혼용가능(한글 기준 25자 이내)</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row blog_manage_right_row2">
+                    <div class="col-sm-2">
+                        <strong>별명</strong>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class=" col-sm-12" type="text" />
+                    </div>
+                    <div class="col-sm-5">
+                        <span>한글,영문,숫자 혼용가능(한글 기준 10자 이내)</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row blog_manage_right_row2">
+                    <div class="col-sm-2">
+                        <strong>소개글</strong>
+                    </div>
+                    <div class="col-sm-5">
+                        <textarea class="col-sm-12" name="" id="" rows="6"></textarea>
+                    </div>
+                    <div class="col-sm-5">
+                        <span>블로그 프로필 영역의<br>
+                            프로필 이미지 아래에 반영됩니다. <br>
+                            (한글 기준 200자 이내)
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row blog_manage_right_row2">
+                    <div class="col-sm-2">
+                        <strong>내 블로그 주제</strong>
+                    </div>
+                    <div class="col-sm-5">
+                        <select class="form-control blog_beauty_subject" name="" id="">
+                            <option value="">영화</option>
+                            <option value="">문학</option>
+                            <option value="">게임</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-5">
+                        <span>한글,영문,숫자 혼용가능(한글 기준 10자 이내)</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row blog_manage_right_row2">
+                    <div class="col-sm-2">
+                        <strong style="font-size: 14px; letter-spacing: -1px;">블로그 프로필 이미지</strong>
+                    </div>
+                    <div class="col-sm-3">
+                        <img src="../../../../resources/images/profile.jpg" alt="">
+                    </div>
+                    <div class="col-sm-5">
+                        <span>블로그 프로필 사진에 등록됩니다.
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body></html>
+

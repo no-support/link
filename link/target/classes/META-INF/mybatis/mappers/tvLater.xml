@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.link.dao.TvLaterDao">
+  	
+  	<insert id="addLater" parameterType="tvLater">
+  	insert into tv_later 
+  	values(tv_later_seq.nextval,#{tv.no},sysdate,#{user.id})
+  	
+  	</insert>
+	
+	
+	<select id="getTvLaterById" parameterType="tvLater" resultType="tv">
+	select 
+		a.tv_no no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		a.CREATE_DATE createDate, 
+		PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime,   
+		TV_THUMBNAIL thumbnail, 
+		b.user_id "tvPlaylist.tvChannel.User.id"
+		
+	from TV a, tv_later b
+	where a.tv_no = b.tv_no
+	and user_id = #{user.id}
+	and a.tv_no = #{tv.no}
+
+	</select>
+  </mapper>
+  
+  

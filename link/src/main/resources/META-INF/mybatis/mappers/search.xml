@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SearchDao">		<!-- Dao경로설정 -->
+	<insert id="addSearchWord" parameterType="string">
+		insert into search_word (word_no, word_name)
+		values
+		(SEARCH_WORD_SEQ.nextval, #{value})
+	</insert>
+	
+	<update id="addCountWord" parameterType="searchword">
+		update
+			search_word
+		set
+			word_count = #{count}
+		where
+			word_name = #{name}
+	</update>
+	
+	<select id="getWordByName" parameterType="string" resultType="searchword">
+		select
+			word_no no,
+			word_name name,
+			word_count count,
+			word_create_date createDate
+		from
+			search_word
+		where
+			word_name = #{value}
+	</select>
+	
+	<select id="autoComplete" parameterType="string" resultType="string">
+		select
+		    word_name
+		from
+		    search_word
+		where
+		    word_name like '%' || #{value} || '%'
+		order by
+			word_count desc
+	</select>
+	
+	<select id="getWordByCount" resultType="string">
+		select
+			word_name
+		from
+			search_word
+		order by
+			word_count desc
+	</select>
+	
+	
+	<!-- 각 분야 검색 쿼리 -->
+	<!-- 지식인 -->
+	<select id="searchJisikin" parameterType="string" resultType="map">
+		select
+		    j.jisikin_no no, 
+		    j.jisikin_title title, 
+		    j.jisikin_content contents,
+		    j.jisikin_secret_yn secretYn, 
+		    j.jisikin_mental_point mentalPoint, 
+		    c.category_no categoryno,
+		    c.category_name categoryname,
+		    j.jisikin_viewcnt viewCnt,
+		    j.jisikin_create_date createDate,
+		    a.answer_no answerNo,
+		    a.answer_contents answerContents
+		from
+		    jisikin j, jisikin_category c, jisikin_answer a
+		where
+		    j.category_no = c.category_no
+		and
+		    j.jisikin_no = a.jisikin_no
+		and
+		    (j.jisikin_title like '%' || #{value} || '%' or j.jisikin_content like '%' || #{value} || '%')
+	</select>
+	
+	<!-- BLOG -->
+	<select id="searchBlog" parameterType="string" resultType="map">
+		select boardNo, title, contents, boardMainImg, blogTitle, blogNo, createDate, categoryNo
+		from
+		    (select
+		            d.board_title title,
+		            d.board_no boardNo,
+		            d.board_contents contents,
+		            a.BLOG_NO blogNo,
+		            a.BLOG_TITLE blogTitle,
+		            d.board_main_Img boardMainImg,
+		            d.board_create_date createDate,
+		            e.category_no categoryNo
+		        from
+		            blog a, blog_boards d, blog_category e, blog_subcategory f
+		        where
+		            f.blog_no = a.blog_no
+		        and
+		            f.subcategory_no = e.subcategory_no
+		        and
+		            e.category_no = d.category_no
+		        )
+		where
+		    (title like '%' || #{value} || '%' or contents like '%' || #{value} || '%')
+	</select>
+	
+	<!-- VOD -->
+	<select id="searchVod" parameterType="string" resultType="seriesVod">
+		select
+		    vod_no no,
+		    vod_img img,
+		    vod_title title,
+		    vod_create_date createDate,
+		    vod_description descriptrion,
+		    vod_running_time runningTime,
+		    vod_grade grade,
+		    vod_actor actor
+		from
+		    series_vods
+		where
+		    (vod_title like '%' || #{value} || '%' or vod_description like '%' || #{value} || '%')
+	</select>
+	
+	<!-- TV -->
+	<select id="searchTv" parameterType="string" resultType="tv">
+		select 
+		   TV_NO no, 
+		   TV_TITLE title, 
+		   TV_CONTENTS contents, 
+		   TV_VIEWS views, 
+		   TV_VIDEONAME videoName, 
+		   CREATE_DATE createDate, 
+		   b.PLAYLIST_NO "tvPlaylist.no", 
+		   TV_PLAYTIME playTime, 
+		   TV_THUMBNAIL thumbnail, 
+		   b.CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		   PLAYLIST_TITLE "tvPlaylist.title", 
+		   CHANNEL_TITLE "tvPlaylist.tvChannel.title"
+		from 
+		   tv a, TV_PLAYLIST b,tv_channel c 
+		where 
+		   a.PLAYLIST_NO = b.PLAYLIST_NO
+		and 
+		   b.channel_no = c.channel_no
+		and
+		   (tv_title like '%' || #{value} || '%' or tv_contents like '%' || #{value} || '%')
+	</select>
+	<!-- BAND -->
+	<select id="searchBand" parameterType="string" resultType="map">
+		select
+		    w.WRITE_NO writeNo,
+		    w.BAND_NO bandNo,
+		    b.band_name bandName,
+		    w.WRITE_CONTENTS contents,
+		    b.band_create_date createDate
+		from
+		    BAND_WRITE w, BAND b
+		where
+		    w.band_no = b.band_no
+		and
+		    (w.write_contents like '%' || #{value} || '%' or b.band_name like '%' || #{value} || '%')
+	</select>
+</mapper>

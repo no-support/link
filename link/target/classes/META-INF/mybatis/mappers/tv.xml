@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.link.dao.TvDao">
+  <!-- 탑20 재생수 높은순으로 20개 뽑기  -->
+ <select id="getVideoTop20" resultType="tv">
+	select   
+		tv_no no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		likes likes
+	from(
+			select 
+				ROW_NUMBER() over(order by tv_views desc) rn, 
+				tv_no, 
+				TV_TITLE , 
+				TV_CONTENTS , 
+				TV_VIEWS , 
+				TV_VIDEONAME, 
+				CREATE_DATE , 
+				b.PLAYLIST_NO , 
+				TV_PLAYTIME , 
+				TV_THUMBNAIL , 
+				d.CHANNEL_NO , 
+				PLAYLIST_TITLE , 
+				CHANNEL_TITLE ,(select COUNT(*)
+								FROM TV_LIKES b
+								where a.TV_NO = b.TV_NO) likes
+			from 
+				tv a, TV_PLAYLIST b,  TV_CHANNEL d
+			where  
+				a.PLAYLIST_NO = b.playlist_no
+			and
+			 	b.CHANNEL_NO = d.CHANNEL_NO)
+	where rn >=1
+	and rn &lt;= 20
+ </select>
+  
+  <!-- 좋아요순으로 4개만뽑기 -->
+  
+ <select id="getVideoLikes" resultType="tv">
+	select 
+		TV_NO no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		likes likes
+	FROM (
+				select ROW_NUMBER() over(order by likes desc) rn, 
+				tv_no, 
+				TV_TITLE , 
+				TV_CONTENTS , 
+				TV_VIEWS , 
+				TV_VIDEONAME, 
+				CREATE_DATE , 
+				PLAYLIST_NO , 
+				TV_PLAYTIME , 
+				TV_THUMBNAIL , 
+				CHANNEL_NO , 
+				PLAYLIST_TITLE , 
+				CHANNEL_TITLE,
+				likes
+				FROM (
+						select 
+							tv_no, 
+							TV_TITLE , 
+							TV_CONTENTS , 
+							TV_VIEWS , 
+							TV_VIDEONAME, 
+							CREATE_DATE , 
+							b.PLAYLIST_NO , 
+							TV_PLAYTIME , 
+							TV_THUMBNAIL , 
+							d.CHANNEL_NO , 
+							PLAYLIST_TITLE , 
+							CHANNEL_TITLE,(select COUNT(*)
+											FROM TV_LIKES b
+											where a.TV_NO = b.TV_NO) likes
+						from 
+							tv a, TV_PLAYLIST b,  TV_CHANNEL d
+						where  
+							a.PLAYLIST_NO = b.playlist_no
+						and
+						 	b.CHANNEL_NO = d.CHANNEL_NO))
+	where 
+		rn &lt; 5
+  </select>
+  
+  <!-- 최신 등록 영상 순으로 4개 뽑기 -->
+	<select id="getVideoRecent" resultType="tv">
+	select 		
+		TV_NO no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		likes likes
+	FROM (
+		select 
+			ROW_NUMBER() over(order by create_date desc) rn, 
+			tv_no, 
+			TV_TITLE , 
+			TV_CONTENTS , 
+			TV_VIEWS , 
+			TV_VIDEONAME, 
+			CREATE_DATE , 
+			PLAYLIST_NO , 
+			TV_PLAYTIME , 
+			TV_THUMBNAIL , 
+			CHANNEL_NO , 
+			PLAYLIST_TITLE , 
+			CHANNEL_TITLE,
+			likes
+		FROM (
+			select 
+				tv_no, 
+				TV_TITLE , 
+				TV_CONTENTS , 
+				TV_VIEWS , 
+				TV_VIDEONAME, 
+				CREATE_DATE , 
+				b.PLAYLIST_NO , 
+				TV_PLAYTIME , 
+				TV_THUMBNAIL , 
+				d.CHANNEL_NO , 
+				PLAYLIST_TITLE , 
+				CHANNEL_TITLE,(select COUNT(*)
+								FROM TV_LIKES b
+								where a.TV_NO = b.TV_NO) likes
+			from 
+				tv a, TV_PLAYLIST b,  TV_CHANNEL d
+			where  
+				a.PLAYLIST_NO = b.playlist_no
+			and
+			 	b.CHANNEL_NO = d.CHANNEL_NO))
+	where 
+	rn &lt; 5
+	
+	</select>
+
+<!--인기영상, 추천영상, 최신영상 조회  -->	
+<select id="getVideoByOpt" parameterType="map" resultType="tv">
+	select 
+		TV_NO no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		likes likes
+	FROM (
+		select 
+			tv_no, 
+			TV_TITLE , 
+			TV_CONTENTS , 
+			TV_VIEWS , 
+			TV_VIDEONAME, 
+			CREATE_DATE , 
+			PLAYLIST_NO , 
+			TV_PLAYTIME , 
+			TV_THUMBNAIL , 
+			CHANNEL_NO , 
+			PLAYLIST_TITLE , 
+			CHANNEL_TITLE,
+			likes
+		FROM (
+			select 
+				tv_no, 
+				TV_TITLE , 
+				TV_CONTENTS , 
+				TV_VIEWS , 
+				TV_VIDEONAME, 
+				CREATE_DATE , 
+				b.PLAYLIST_NO , 
+				TV_PLAYTIME , 
+				TV_THUMBNAIL , 
+				d.CHANNEL_NO , 
+				PLAYLIST_TITLE , 
+				CHANNEL_TITLE,(select COUNT(*)
+								FROM TV_LIKES b
+								where a.TV_NO = b.TV_NO) likes
+			from 
+				tv a, TV_PLAYLIST b,  TV_CHANNEL d
+			where  
+				a.PLAYLIST_NO = b.playlist_no
+			and
+			 	b.CHANNEL_NO = d.CHANNEL_NO))
+	<where>
+		<choose>
+			<when test="opt == 'recent'">
+				to_char(create_date,'YYYYMMDD') > to_char((sysdate-30) ,'YYYYMMDD')
+			</when>
+			<when test="opt == 'best'">
+				tv_views > 1
+			</when>
+			<when test="opt == 'suggest'">
+				likes > 1
+			</when>
+		</choose>
+	</where>
+		
+	order by 
+		<choose>
+			<when test="opt == 'recent'">
+				createDate desc
+			</when>
+			<when test="opt == 'best'">
+				views  desc
+			</when>
+			<when test="opt =='suggest'">
+				likes desc
+			</when>
+		</choose>
+
+</select>
+
+
+
+<!--내 영상 조회 (최근 본, 나중에 보기, 좋아요)  -->	
+
+<select id="getVideoByLater" parameterType="string" resultType="tv">
+	select  
+			TV_NO no, 
+			TV_TITLE title, 
+			TV_CONTENTS contents, 
+			TV_VIEWS views, 
+			TV_VIDEONAME videoName, 
+			CREATE_DATE createDate, 
+			PLAYLIST_NO "tvPlaylist.no", 
+			TV_PLAYTIME playTime, 
+			TV_THUMBNAIL thumbnail, 
+			CHANNEL_NO "tvPlaylist.tvChannel.no", 
+			PLAYLIST_TITLE "tvPlaylist.title", 
+			CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+			likes likes
+		FROM (select
+		c.user_id,
+			a.tv_no, 
+			TV_TITLE , 
+			TV_CONTENTS , 
+			TV_VIEWS , 
+			TV_VIDEONAME, 
+			c.CREATE_DATE , 
+			b.PLAYLIST_NO , 
+			TV_PLAYTIME , 
+			TV_THUMBNAIL , 
+			d.CHANNEL_NO , 
+			PLAYLIST_TITLE , 
+			CHANNEL_TITLE,(select COUNT(*)
+							FROM TV_LIKES b
+							where a.TV_NO = b.TV_NO) likes
+		from 
+			tv a, TV_PLAYLIST b,  TV_CHANNEL d, TV_LATER c
+		where  
+			a.PLAYLIST_NO = b.playlist_no
+		and
+		 	b.CHANNEL_NO = d.CHANNEL_NO
+		 and c.tv_no = a.tv_no)
+where user_id = #{value}
+order by CREATE_DATE desc
+</select>
+<select id="getVideoByLikes" parameterType="string" resultType="tv">
+	select  
+			TV_NO no, 
+			TV_TITLE title, 
+			TV_CONTENTS contents, 
+			TV_VIEWS views, 
+			TV_VIDEONAME videoName, 
+			CREATE_DATE createDate, 
+			PLAYLIST_NO "tvPlaylist.no", 
+			TV_PLAYTIME playTime, 
+			TV_THUMBNAIL thumbnail, 
+			CHANNEL_NO "tvPlaylist.tvChannel.no", 
+			PLAYLIST_TITLE "tvPlaylist.title", 
+			CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+			likes likes
+		FROM (select
+		c.user_id,
+			a.tv_no, 
+			TV_TITLE , 
+			TV_CONTENTS , 
+			TV_VIEWS , 
+			TV_VIDEONAME, 
+			c.CREATE_DATE , 
+			b.PLAYLIST_NO , 
+			TV_PLAYTIME , 
+			TV_THUMBNAIL , 
+			d.CHANNEL_NO , 
+			PLAYLIST_TITLE , 
+			CHANNEL_TITLE,(select COUNT(*)
+							FROM TV_LIKES b
+							where a.TV_NO = b.TV_NO) likes
+		from 
+			tv a, TV_PLAYLIST b,  TV_CHANNEL d, TV_likes c
+		where  
+			a.PLAYLIST_NO = b.playlist_no
+		and
+		 	b.CHANNEL_NO = d.CHANNEL_NO
+		 and c.tv_no = a.tv_no)
+where user_id = #{value}
+order by CREATE_DATE desc
+</select>
+<select id="getVideoByHistory" parameterType="string" resultType="tv">
+	select  
+			TV_NO no, 
+			TV_TITLE title, 
+			TV_CONTENTS contents, 
+			TV_VIEWS views, 
+			TV_VIDEONAME videoName, 
+			CREATE_DATE createDate, 
+			PLAYLIST_NO "tvPlaylist.no", 
+			TV_PLAYTIME playTime, 
+			TV_THUMBNAIL thumbnail, 
+			CHANNEL_NO "tvPlaylist.tvChannel.no", 
+			PLAYLIST_TITLE "tvPlaylist.title", 
+			CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+			likes likes
+		FROM (select
+			c.user_id,
+			a.tv_no, 
+			TV_TITLE , 
+			TV_CONTENTS , 
+			TV_VIEWS , 
+			TV_VIDEONAME, 
+			c.CREATE_DATE , 
+			b.PLAYLIST_NO , 
+			TV_PLAYTIME , 
+			TV_THUMBNAIL , 
+			d.CHANNEL_NO , 
+			PLAYLIST_TITLE , 
+			CHANNEL_TITLE,(select COUNT(*)
+							FROM TV_LIKES b
+							where a.TV_NO = b.TV_NO) likes
+		from 
+			tv a, TV_PLAYLIST b,  TV_CHANNEL d, TV_history c
+		where  
+			a.PLAYLIST_NO = b.playlist_no
+		and
+		 	b.CHANNEL_NO = d.CHANNEL_NO
+		 and c.tv_no = a.tv_no)
+where user_id = #{value}
+order by CREATE_DATE desc
+</select>
+
+<delete id="deleteHistoryByLater" parameterType="map">
+	DELETE
+	FROM 
+		TV_LATER
+	WHERE 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+	
+</delete>
+
+<delete id="deleteHistoryByRecent" parameterType="map">
+	DELETE
+	FROM 
+		TV_history
+	WHERE 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+	
+</delete>
+
+<delete id="deleteHistoryByLike" parameterType="map">
+	DELETE
+	FROM 
+		TV_likes
+	WHERE 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+	
+</delete>
+
+<select id="getVideoDetailByNo" parameterType="int" resultType="tv">
+
+	select 
+		TV_NO no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		b.PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		b.CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		(select COUNT(*)
+				FROM TV_LIKES b
+				where a.TV_NO = b.TV_NO) likes,
+		(select COUNT(*)
+				FROM tv_comments e
+				where a.TV_NO = e.TV_NO) comments
+	from 
+		tv a, TV_PLAYLIST b,  TV_CHANNEL d
+	where  
+		a.PLAYLIST_NO = b.playlist_no
+	and
+	 	b.CHANNEL_NO = d.CHANNEL_NO
+	and 
+		tv_no= #{value}
+</select>
+
+<select id="getPlaylistByNo" parameterType="int" resultType="tv">
+	select 
+		TV_NO no, 
+		TV_TITLE title, 
+		TV_CONTENTS contents, 
+		TV_VIEWS views, 
+		TV_VIDEONAME videoName, 
+		CREATE_DATE createDate, 
+		b.PLAYLIST_NO "tvPlaylist.no", 
+		TV_PLAYTIME playTime, 
+		TV_THUMBNAIL thumbnail, 
+		b.CHANNEL_NO "tvPlaylist.tvChannel.no", 
+		PLAYLIST_TITLE "tvPlaylist.title", 
+		CHANNEL_TITLE "tvPlaylist.tvChannel.title",
+		(select COUNT(*)
+				FROM TV_LIKES b
+				where a.TV_NO = b.TV_NO) likes,
+		(select COUNT(*)
+				FROM tv_comments e
+				where a.TV_NO = e.TV_NO) comments
+	from 
+		tv a, TV_PLAYLIST b,  TV_CHANNEL d
+	where  
+		a.PLAYLIST_NO = b.playlist_no
+	and
+	 	b.CHANNEL_NO = d.CHANNEL_NO
+	and 
+		b.PLAYLIST_NO = (	SELECT playlist_no
+							FROM TV
+							where tv_no = #{value})
+	order by
+			tv_no
+</select>
+
+<update id="updateVideo" parameterType="tv">
+	UPDATE 
+		TV 
+	set 
+		TV_TITLE =#{title}, 
+		TV_CONTENTS =#{contents}, 
+		TV_VIEWS =#{views}, 
+		TV_VIDEONAME =#{videoName}, 
+		PLAYLIST_NO =#{tvPlaylist.no}, 
+		TV_PLAYTIME =#{playTime}, 
+		TV_THUMBNAIL =#{thumbnail}
+	where 
+		tv_no =#{no}
+</update>
+ </mapper>

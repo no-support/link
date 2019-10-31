@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesEpisodeDao">		<!-- Dao경로설정 -->
+	
+	<select id="getEpisodesByVodNo" parameterType="int" resultType="seriesEpisode">
+		select 
+			EPISODE_NO no,
+			VOD_NO "vod.no",
+			EPISODE_TITLE title,
+			EPISODE_DATE "date",
+			EPISODE_SUMMARY summary,
+			EPISODE_CONTENTS contents,
+			EPISODE_CREATE_DATE createDate,
+			EPISODE_PRICE price 
+		from series_episodes
+		where vod_no = #{value}
+		order by episode_no desc
+	</select>
+	
+	<select id="getCountEpisodesByNo" parameterType="int" resultType="int">
+		select count(*)
+		from series_episodes
+		where vod_no = #{value}
+	</select>
+	
+	<select id="getEpisodesInUserCarts" parameterType="string" resultType="seriesEpisode">	<!-- 유저의 장바구니에 담긴 에피소드 -->
+		select 
+			EPISODE_NO no,
+			VOD_NO "vod.no",
+			EPISODE_TITLE title,
+			EPISODE_DATE "date",	<!-- date 예약어라 감싸줘야 함 -->
+			EPISODE_SUMMARY summary,
+			EPISODE_CONTENTS contents,
+			EPISODE_CREATE_DATE createDate,
+			EPISODE_PRICE price 
+		from series_episodes 
+		where episode_no in 
+			(select episode_no from series_carts where user_id= #{value})
+	</select>
+	
+	<select id="getEpisodeByNo" parameterType="int" resultType="seriesEpisode">
+		select
+			EPISODE_NO no,
+			VOD_NO "vod.no",
+			EPISODE_TITLE title,
+			EPISODE_DATE "date",
+			EPISODE_SUMMARY summary,
+			EPISODE_CONTENTS contents,
+			EPISODE_CREATE_DATE createDate,
+			EPISODE_PRICE price 
+		from series_episodes
+		where episode_no = #{value}
+	</select>
+</mapper>

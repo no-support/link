@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesReviewReputationDao">		<!-- Dao경로설정 -->
+	
+	<select id="getCountReputationLikes" parameterType="int" resultType="int">	<!-- 공감 수 -->
+		select count(*)
+		from series_review_reputations
+		where review_no=#{value} and reputation_like='Y'
+	</select>
+	
+	<select id="getCountReputationDislike" parameterType="int" resultType="int">	<!-- 비공감 수 -->
+		select count(*)
+		from series_review_reputations
+		where review_no=#{value} and reputation_dislike='Y'
+	</select>
+	
+	<insert id="addReputationLike" parameterType="seriesReviewReputation">		<!-- 공감 추가 -->
+		insert into series_review_reputations (reputation_no, user_id, review_no, reputation_like) 
+		values (series_reputation_seq.nextval, #{user.id}, #{review.no}, 'Y')
+	</insert>
+	
+	<insert id="addReputationDisLike" parameterType="seriesReviewReputation">		<!-- 비공감 추가 -->
+		insert into series_review_reputations (reputation_no, user_id, review_no, reputation_dislike) 
+		values (series_reputation_seq.nextval, #{user.id}, #{review.no}, 'Y')
+	</insert>
+	
+	<delete id="deleteReputationLike" parameterType="int">	<!-- 공감 삭제 -->
+		delete
+		from series_review_reputations
+		where review_no = ${value}
+	</delete>
+	
+	<delete id="deleteReputationDislike" parameterType="int">	<!-- 공감 삭제 -->
+		delete
+		from series_review_reputations
+		where review_no = ${value}
+	</delete>
+</mapper>

@@ -1,0 +1,291 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Bootstrap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/band.css">
+    <link rel="stylesheet" href="../../../resources/css/blog.css">
+    <link rel="stylesheet" href="../../../resources/css/main.css">
+    <style>
+        .band-back {
+            background-color: #eef0f3;
+        }
+
+        .band-header {
+            background-color: #fff;
+            position: relative;
+            height: 50px;
+            margin: 0 auto;
+        }
+
+        .bendLogo {
+            width: 70px;
+            height: 26px;
+            overflow: hidden;
+            display: inline-block;
+            background-repeat: no-repeat;
+            content: '';
+            background-image: url(https://ssl.pstatic.net/cmstatic/webclient/dres/20190618150650/images/spr_icons.png);
+            background-position: -72px -284px;
+        }
+
+        .band-main-javer {
+            position: relative;
+            top: 5px;
+            font-size: 15px;
+            color: black;
+            font-weight: 800;
+        }
+
+        .band-main-band {
+            position: relative;
+            top: 8px;
+            font-size: 24px;
+            color: black;
+        }
+
+        .band-search-position {
+            position: relative;
+            top: -3px;
+            left: -9px
+        }
+
+        .band-navbar-id {
+            color: black;
+            position: relative;
+            bottom: 3px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .band-profile-img {
+            width: 26px;
+        }
+
+        .dropdown-menu {
+            min-width: 140px;
+        }
+
+        .glyphicon-comment {
+            font-size: 23px;
+            color: black;
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+            top: 2px;
+            left: -19px;
+        }
+
+        .bell2 {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+        }
+
+        .comment {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+        }
+
+        .band-buttom {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .band-each>a>.col-sm-3 {
+            border:1px solid gray;
+            padding: 0px;
+            margin:0px 15px;
+            width:262.5px;
+            background-color: white;
+
+        }
+
+        .band-into-photo {
+            width: 262.5px;
+            height: 222px;
+        }
+
+        .band-into-name {
+            height: 65px;
+            padding: 8px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body class="band-back">
+    <!--네비 시작-->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="#">
+                        <span class="band-main-javer">Link</span> <span class="band-main-band">밴드</span>
+                    </a>
+                </div>
+                <div class="col-sm-5 blog-searchbar">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
+                        </div>
+                        <button type="submit" class="btn btn-default" style="width: 31px; height: 31px;"><span style="color: black; font-size: 23px;" class="glyphicon glyphicon-search band-search-position"></span></button>
+                    </form>
+                </div>
+
+                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
+                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="band-profile-img" src="../../../../resources/images/blog.png" alt="">
+                                    <span class="band-navbar-id">홍길동 님</span>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">내 정보</a></li>
+                                    <li><a href="#">블로그</a></li>
+                                    <li><a href="#">밴드</a></li>
+                                    <li><a href="#">가계부</a></li>
+                                    <li><a href="#">지식인</a></li>
+                                    <li><a href="#">시리즈</a></li>
+                                    <li><a href="#">TV</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="bell2 text-center"><a href=""><span class="glyphicon glyphicon-bell" style="color: black"></span></a></div>
+                        <div class="comment text-center"><a href=""><span class="glyphicon glyphicon-comment" style="color: black"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--네비끝-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>내 목록</h3>
+            </div>
+            <div class="col-sm-4">
+                <div class=" text-right">
+                    <a href="" class="glyphicon glyphicon-cog">목록편집</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="" class="glyphicon glyphicon-list-alt">밴드가이드</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <div class="row band-each">
+
+                    <a href="#">
+                        <!--
+                    <div class="col-sm-3">
+                        <div class="row text-center">
+                            <div class="col-sm-12">
+                                <img src="../../../resources/images/band_plus.PNG">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                               밴드 추가하기 
+                            </div>
+                        </div>
+                    </div>
+-->
+                    </a>
+
+                    <a href="#">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="../../../../resources/images/band.png" class="band-into-photo img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="row text-left band-into-name">
+                                <div class="col-sm-12">
+                                    샘플 밴드1
+                                </div>
+                                <div class="col-sm-12 band-buttom">
+                                    멤버 100
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+ <a href="#">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="../../../../resources/images/band.png" class="band-into-photo img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="row text-left band-into-name">
+                                <div class="col-sm-12">
+                                    샘플 밴드1
+                                </div>
+                                <div class="col-sm-12 band-buttom">
+                                    멤버 100
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+ <a href="#">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="../../../../resources/images/band.png" class="band-into-photo img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="row text-left band-into-name">
+                                <div class="col-sm-12">
+                                    샘플 밴드1
+                                </div>
+                                <div class="col-sm-12 band-buttom">
+                                    멤버 100
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+ <a href="#">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="../../../../resources/images/band.png" class="band-into-photo img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="row text-left band-into-name">
+                                <div class="col-sm-12">
+                                    샘플 밴드1
+                                </div>
+                                <div class="col-sm-12 band-buttom">
+                                    멤버 100
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

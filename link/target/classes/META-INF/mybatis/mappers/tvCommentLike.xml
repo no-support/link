@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.co.link.dao.TvCommentLikeDao">
+
+	<insert id="addCommentStatus" parameterType="map">
+		insert into tv_comment_likes
+		values(tv_comment_like_seq.nextval, #{status}, #{cno}, #{userId})
+	</insert>
+	
+	<update id="updateCommentStatus" parameterType="map">
+		UPDATE TV_COMMENT_LIKES 
+		set COMMNET_STATUS = #{status} 
+		where COMMENT_NO =#{cno} 
+		and USER_ID =#{userId}
+	</update>
+	
+	<delete id="deleteCommentStatus" parameterType="map">
+		delete from tv_comment_likes where COMMENT_NO = #{cno} and user_id = #{userId}
+	</delete>
+	
+	<select id="getCountLikeAndHate" parameterType="map" resultType="map">
+		select
+			(select count(*) from tv_comment_likes where comment_no = #{cno} and commnet_status = 'Y') likes,
+			(select count(*) from tv_comment_likes where comment_no = #{cno} and commnet_status = 'N') hates,
+			(select commnet_status from  tv_comment_likes  where COMMENT_NO = #{cno} and  user_id = #{userId}) status
+		from dual
+	</select>
+	
+ </mapper>

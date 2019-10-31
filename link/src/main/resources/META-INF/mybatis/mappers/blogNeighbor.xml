@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogNeighborDao">		<!-- Dao경로설정 -->
+<select id="getNeighborByBlogNo" parameterType="map" resultType="blog">
+		select
+		a.BLOG_NO no,
+		a.BLOG_TITLE title,
+		a.BLOG_MAIN_IMG mainImg,
+		a.BLOG_THEME theme,
+		a.BLOG_VISITS visits,
+		a.BLOG_DESCRIPTION description,
+		a.BLOG_CREATE_DATE createDate,
+		a.USER_ID userId,
+		a.BLOG_BACKGROUND_COLOR backgroundColor,
+		a.BLOG_FONT_COLOR fontColor,
+		a.blog_opacity opacity,
+		a.BLOG_ATAG_COLOR atagColor,
+		a.BLOG_HR_COLOR hrColor,
+		a.BLOG_BODY_COLOR bodyColor,
+		a.BLOG_FIRSTCOL firstCol,
+		a.BLOG_SECONDCOL secondCol,
+		a.BLOG_THIRDCOL thirdCol,
+		a.BLOG_LAYOUT layout,
+		a.BLOG_PAGENUM_COLOR pageNumColor, 
+		a.BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		a.BLOG_TOPIC topic,
+		a.BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
+	from 
+		blog a, blog_neighbor b
+	where
+		b.blog_no = #{blogNo}
+	and
+		a.blog_no = b.neighborhood_no
+	and 
+		b.neighborhood_type = #{type}
+</select>
+<!-- 나를 추가한 이웃 가져오기 -->
+<select id="getNeighborNoByBlogNo" parameterType="map" resultType="map">
+		select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_nickname nickName,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+		where
+            b.user_id = c.user_id
+        and
+            a.blog_no = b.blog_no
+        and
+            a.NEIGHBORHOOD_NO = #{myBlogNo}
+		<if test="type !=null">
+			and
+				a.NEIGHBORHOOD_TYPE = #{type}
+		</if>
+		<if test="status !=null">
+			and
+				a.NEIGHBOR_STATUS = #{status}
+		</if>
+</select>
+<!-- 내가 추가한 이웃 가져오기  -->
+<select id="getNeighborIAdd" parameterType="int" resultType="map">
+		select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_nickname nickName,
+            b.blog_title title,
+            b.blog_main_img mainImg,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+        where
+            a.blog_no = #{myBlogNo}
+        and
+            a.neighborhood_no = b.blog_no
+        and
+            b.user_id = c.user_id
+</select>
+
+<insert id="addNewNeighborRequest" parameterType="blogNeighbor">
+	insert into blog_neighbor
+		(NEIGHBORHOOD_NO,
+		BLOG_NO,
+		NEIGHBORHOOD_TYPE,
+		NEIGHBOR_STATUS,
+		NEIGHBOR_MESSAGE,
+		NEIGHBOR_CREATE_DATE)
+	values
+	(#{no}, #{blogNo}, #{type}, #{status}, #{message}, sysdate)
+</insert>
+<update id="updateBlogNeighbor" parameterType="blogNeighbor">
+	update blog_neighbor
+	set
+		NEIGHBORHOOD_TYPE = #{type},
+		NEIGHBOR_STATUS = #{status},
+		NEIGHBOR_MESSAGE = #{message},
+		NEIGHBOR_CREATE_DATE = #{createDate}
+	where
+		NEIGHBORHOOD_NO = #{no}
+	and
+		BLOG_NO = #{blogNo}
+</update>
+<select id="getNeighborBlogMap" parameterType="int" resultType="map">
+select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
+from
+    (   select ROW_number() over(partition by a.blog_no order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{value}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+    where
+        row_no &lt;= 2
+</select>
+<select id="getPaginationByMap" parameterType="map" resultType="map">
+select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
+from
+    (   select ROW_number() over(order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{myBlogNo}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+    where
+        row_no &lt;= #{endIndex}
+    and
+    	row_no >= #{beginIndex}
+    	
+</select>
+<select id="getPaginationByMapRows" parameterType="int" resultType="int">
+select
+	count(*)
+from
+    (   select ROW_number() over(order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{value}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+</select>
+<select id="isNeighbor" parameterType="map" resultType="int">
+	select 
+		b.neighborhood_no
+	from 
+		blog a, blog_neighbor b
+	where 
+		a.blog_no = b.blog_no
+	and 
+		a.blog_no = #{myBlogNo}
+	and 
+		b.neighborhood_no = #{neighborhoodNo}
+</select>
+<select id="getNeighborRequest" parameterType="map" resultType="map">
+	select 
+		c.user_id NEIGHBORID, 
+		c.user_nickName NICKNAME, 
+		d.blog_no NEIGHBORBLOGNO
+	from 
+		blog a, blog_neighbor b, users c, blog d
+	where
+	    a.blog_no = b.neighborhood_no
+	and
+	    b.blog_no = d.blog_no
+	and
+	    d.user_id = c.user_id
+	and
+	    a.blog_no = #{myBlogNo}
+	and
+		b.neighbor_status = #{status}
+</select>
+<select id="getNeighborByMyBlogNo" parameterType="map" resultType="blogNeighbor">
+	select
+		NEIGHBORHOOD_NO no,
+		BLOG_NO blogNo,
+		NEIGHBORHOOD_TYPE type,
+		NEIGHBOR_STATUS status,
+		NEIGHBOR_MESSAGE message,
+		NEIGHBOR_CREATE_DATE createDate
+	from
+		blog_neighbor
+	where
+		neighborhood_no = #{myBlogNo}
+	<if test="neighborBlogNo != null">
+		and
+			blog_no = #{neighborBlogNo}
+	</if>
+</select>
+<select id="getNeighborsByMyBlogNo" parameterType="int" resultType="blogNeighbor">
+	select
+		NEIGHBORHOOD_NO no,
+		BLOG_NO blogNo,
+		NEIGHBORHOOD_TYPE type,
+		NEIGHBOR_STATUS status,
+		NEIGHBOR_MESSAGE message,
+		NEIGHBOR_CREATE_DATE createDate
+	from
+		blog_neighbor
+	where
+		BLOG_NO = #{myBlogNo}
+</select>
+<select id="getNeighborCountsByBlogNo" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_neighbor
+	where
+		blog_no = #{value}
+</select>
+<delete id="deleteNeighborByMyBlogNoNeighborBlogNo" parameterType="map">
+	delete from
+		blog_neighbor
+	where
+		blog_no = #{myBlogNo}
+	and
+		neighborhood_no = #{neighborBlogNo}
+</delete>
+</mapper>

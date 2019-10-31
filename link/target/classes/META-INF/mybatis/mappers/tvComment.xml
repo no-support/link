@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.co.link.dao.TvCommentDao">
+
+	<insert id="addComment"  parameterType="map">
+		insert into	tv_comments
+		values(tv_comments_seq.nextval, #{vno}, #{contents}, sysdate, #{userId})
+	</insert>
+	
+	<select id="getAllCommentByVno" parameterType="map" resultType="map">
+		select 
+			comment_no no, 
+			tv_no vno, 
+			COMMENT_CONTENTS contents, 
+			CREATE_DATE createDate, 
+			USER_ID userId,
+			(select count(*) 
+			from TV_COMMENT_LIKES b
+			where commnet_status = 'Y'
+			and a.COMMENT_NO = b.COMMENT_NO ) likeCnt, 
+			(select count(*)
+			from TV_COMMENT_LIKES b
+			where commnet_status = 'N'
+			and a.COMMENT_NO = b.COMMENT_NO) hateCnt 
+			<if test="userId != null"> 
+				,(select 
+						commnet_status
+					from 
+						tv_comment_likes b
+					where 
+						a.comment_no = b.COMMENT_NO
+					and 
+						b.user_id = #{userId}) status
+			</if>
+			<if test="userId == null">
+				, null status
+			</if>
+		from 
+			TV_COMMENTS a
+		where 
+			tv_no = #{vno}
+		order by
+			create_date desc
+		
+	</select>
+ </mapper>
